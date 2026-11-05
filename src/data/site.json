@@ -5,7 +5,6 @@
   "location": "San Antonio, TX",
   "remoteSince": 2012,
   "email": "hello@andrewdaniels.design",
-  "avatar": "/media/andrew.svg",
   "title": "Andrew Daniels: Founding Product Designer",
   "description": "I'm a founding product designer. I've spent 13 years helping startups design and ship products, and now I'm building Uncomn and KnowHim.",
   "intro": {
@@ -130,5 +129,6 @@
         ]
       }
     ]
-  }
+  },
+  "photo": ""
 }

@@ -56,7 +56,6 @@ const nav = [
   <body data-open-sheet={openSheet}>
     <div class="shell">
       <nav class="sidenav" aria-label="Primary">
-        <a href="/" class="brand" aria-label="Andrew Daniels, home">AD</a>
         {nav.map((n) => (
           <a class="navlink" href={n.href} aria-current={n.current} aria-label={n.label}>
             <Icon name={n.icon} /><span class="tip">{n.label}</span>

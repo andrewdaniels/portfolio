@@ -11,7 +11,7 @@ import Icon from './Icon.astro';
     </div>
     <div tabindex="-1" autofocus class="sheet-body about">
       <div class="about-id">
-        <img src={site.avatar} alt="" width="64" height="64" />
+        {site.photo && <img src={site.photo} alt={site.name} width="64" height="64" />}
         <div>
           <strong>{site.name}</strong>
           <span class="faint">{site.role} · {site.location}</span>
@@ -57,7 +57,7 @@ import Icon from './Icon.astro';
 <style>
   .about > * + * { margin-top: 18px; }
   .about-id { display: flex; align-items: center; gap: 14px; }
-  .about-id img { border-radius: 50%; }
+  .about-id img { border-radius: 50%; object-fit: cover; }
   .about-id div { display: grid; line-height: 1.3; }
   .about-id span { font-size: 14px; }
   .about-quote {

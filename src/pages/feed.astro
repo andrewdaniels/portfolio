@@ -14,7 +14,6 @@ const tabs = [
 <Shell title="Feed" description="A running feed of what I'm designing, shipping and writing.">
   <div class="feed-wrap">
     <header class="fhead">
-      <img src={site.avatar} alt="" width="72" height="72" />
       <h1 class="h-md">{site.name}</h1>
       <p class="faint">@{site.handle} · {site.role} · {site.location}</p>
       <p class="muted bio">{site.description}</p>
@@ -31,7 +30,6 @@ const tabs = [
 <style>
   .feed-wrap { max-width: 680px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) 20px 80px; }
   .fhead { display: grid; gap: 4px; padding-bottom: 20px; }
-  .fhead img { border-radius: 50%; margin-bottom: 10px; }
   .bio { margin-top: 8px; }
   .tabs {
     position: sticky; top: 0; z-index: 5; display: flex; gap: 4px;
