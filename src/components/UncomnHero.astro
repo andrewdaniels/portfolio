@@ -78,7 +78,8 @@ const { class: cls = '', width } = Astro.props;
   let iw = 0, ih = 0;
   const img = new Image();
   img.onload = () => { iw = img.naturalWidth; ih = img.naturalHeight; ports.forEach(align); };
-  img.src = '/media/uncomn/hero-coast.webp';
+  const m = /url\(["']?([^"')]+)/.exec(ports[0] ? getComputedStyle(ports[0]).getPropertyValue('--hero-photo') : '');
+  if (m) img.src = m[1];
   function align(port: HTMLElement) {
     const screen = port.querySelector<HTMLElement>('.hs');
     if (!screen || !iw) return;
