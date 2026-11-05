@@ -5,8 +5,7 @@ import ProjectCard from './ProjectCard.astro';
 import FeedItem from './FeedItem.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
-import IsoStack from './IsoStack.astro';
-import UncomnMock from './UncomnMock.astro';
+import Mockup from './Mockup.astro';
 import site from '../data/site.json';
 import work from '../data/work.json';
 import testimonials from '../data/testimonials.json';
@@ -18,12 +17,10 @@ const projects = await getProjects();
 const now = projects.filter((p) => p.data.status === 'now');
 const past = projects.filter((p) => p.data.status !== 'now');
 const selected = past.slice(0, 4);
-const kh = projects.find((p) => p.id === 'knowhim')!;
-const khImgs = [kh.data.cover, ...kh.data.thumbs, ...kh.data.shots].filter(Boolean);
 const feed = (await getFeed()).filter((f) => f.kind !== 'project').slice(0, 3);
 ---
 <Shell openSheet={openSheet} title={title}>
-  <Hero knowhim={khImgs} />
+  <Hero />
 
   <!-- Building now -->
   <section class="section">
@@ -32,11 +29,10 @@ const feed = (await getFeed()).filter((f) => f.kind !== 'project').slice(0, 3);
     </div>
     <div class="now-grid">
       {now.map((p) => {
-        const imgs = [p.data.cover, ...p.data.thumbs, ...p.data.shots].filter(Boolean);
         return (
           <article class="now-card iso-host reveal">
             <a class="stretch-link" href={`/projects/${p.id}`} aria-label={`${p.data.title} case study`}></a>
-            <div class="now-media">{p.data.mockup === 'uncomn' ? <div class="now-phone"><UncomnMock /></div> : <IsoStack images={imgs} layers={4} />}</div>
+            <div class="now-media"><Mockup project={p} variant="tile" /></div>
             <div class="now-body">
               <div class="now-top"><span class="chip live">Live</span><span class="faint mono">{p.data.years}</span></div>
               <h3 class="h-md">{p.data.title}</h3>
@@ -129,8 +125,9 @@ const feed = (await getFeed()).filter((f) => f.kind !== 'project').slice(0, 3);
   .stretch-link { position: absolute; inset: 0; z-index: 1; }
   .now-actions { position: relative; z-index: 2; display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
   .now-media { position: relative; aspect-ratio: 5 / 4; overflow: hidden; background: radial-gradient(80% 70% at 50% 40%, color-mix(in oklab, var(--accent) 16%, var(--surface-2)), var(--surface)); }
-  .now-phone { position: absolute; inset: 0; display: grid; place-items: end center; }
-  .now-phone :global(.uphone) { width: 260px; translate: 0 18%; }
+  .now-media :global(.un-port) { --un-right: 50%; --un-bottom: -14%; }
+  .now-media :global(.un-fit) { translate: 50% 0; }
+  .now-media :global(.kh-port) { --kh-left: 50%; --kh-top: 40%; --kh-scale: min(calc(100cqw / 720px), calc(100cqh / 520px), 1.1); }
   .now-body { padding: clamp(20px, 2.4vw, 32px); display: grid; gap: 10px; }
   .now-top { display: flex; justify-content: space-between; align-items: center; }
   .now-body .muted { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }

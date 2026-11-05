@@ -30,7 +30,11 @@ const projects = defineCollection({
     status: z.enum(['now', 'past']).default('past'),
     tagline: z.string().default(''),
     link: z.string().default(''),
-    mockup: z.enum(['iso', 'uncomn']).default('iso'),
+    mockup: z.enum(['iso', 'uncomn', 'knowhim']).default('iso'),
+    gallery: z.enum(['mixed', 'phones', 'squares']).default('mixed'),
+    widgets: z.array(z.string()).default([]),
+    video: z.string().default(''),
+    videoPoster: z.string().default(''),
     draft: z.boolean().default(false),
   }),
 });

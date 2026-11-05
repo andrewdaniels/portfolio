@@ -1,8 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Shell from '../../layouts/Shell.astro';
-import IsoStack from '../../components/IsoStack.astro';
-import UncomnMock from '../../components/UncomnMock.astro';
+import Mockup from '../../components/Mockup.astro';
 import Footer from '../../components/Footer.astro';
 import Icon from '../../components/Icon.astro';
 import { getProjects } from '../../lib/content';
@@ -14,8 +13,7 @@ export async function getStaticPaths() {
 const { project, next } = Astro.props;
 const d = project.data;
 const { Content } = await render(project);
-const imgs = [d.cover, ...d.thumbs, ...d.shots].filter(Boolean);
-const gallery = [...d.thumbs, ...d.shots].filter(Boolean);
+const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.thumbs, ...d.shots].filter(Boolean))];
 ---
 <Shell title={d.title} description={d.summary.slice(0, 160)} image={d.cover || undefined}>
   <article>
@@ -37,7 +35,7 @@ const gallery = [...d.thumbs, ...d.shots].filter(Boolean);
     </header>
 
     <div class="hero-media iso-host">
-      {d.mockup === 'uncomn' ? <div class="hm-phone"><UncomnMock /></div> : <IsoStack images={imgs} layers={4} />}
+      <Mockup project={project} layers={4} phone="min(52cqh, 40cqw, 360px)" />
     </div>
 
     <section class="wrap body">
@@ -57,10 +55,23 @@ const gallery = [...d.thumbs, ...d.shots].filter(Boolean);
       </section>
     )}
 
+    {d.video && (
+      <section class="wrap video-wrap reveal">
+        <video src={d.video} poster={d.videoPoster || undefined} autoplay muted loop playsinline preload="metadata"></video>
+      </section>
+    )}
+
+    {d.widgets.length > 0 && (
+      <section class="wrap widgets">
+        <p class="eyebrow">Home Screen widgets</p>
+        <div class="w-grid">{d.widgets.map((src) => <img class="reveal" src={src} alt="" loading="lazy" decoding="async" />)}</div>
+      </section>
+    )}
+
     {gallery.length > 0 && (
-      <section class="wrap gallery">
+      <section class:list={['wrap gallery', `g-${d.gallery}`]}>
         {gallery.map((src, i) => (
-          <button class:list={['g-item reveal', { wide: i % 3 === 0 }]} data-lightbox={src} aria-label="Enlarge image">
+          <button class:list={['g-item reveal', { wide: d.gallery === 'mixed' && i % 3 === 0 }]} data-lightbox={src} aria-label="Enlarge image">
             <img src={src} alt={`${d.title} screen ${i + 1}`} loading="lazy" decoding="async" />
           </button>
         ))}
@@ -91,8 +102,18 @@ const gallery = [...d.thumbs, ...d.shots].filter(Boolean);
     background: radial-gradient(80% 80% at 50% 35%, color-mix(in oklab, var(--accent) 14%, var(--surface-2)), var(--surface));
   }
   .hero-media :global(.iso-plane) { width: 52%; }
-  .hm-phone { position: absolute; inset: 0; display: grid; place-items: end center; }
-  .hm-phone :global(.uphone) { width: 300px; translate: 0 14%; }
+  .hero-media :global(.un-port) { --un-right: 50%; --un-bottom: -12%; }
+  .hero-media :global(.un-fit) { translate: 50% 0; }
+  .video-wrap { padding-top: clamp(40px, 6vw, 80px); }
+  .video-wrap video { width: 100%; border-radius: var(--radius-lg); background: var(--surface); display: block; }
+  .widgets { padding-top: clamp(40px, 6vw, 80px); }
+  .w-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; margin-top: 16px; align-items: start; }
+  .w-grid img { width: 100%; border-radius: 24px; }
+  .gallery.g-phones { grid-template-columns: repeat(4, 1fr); }
+  .g-phones .g-item { border-radius: 28px; background: #0d1013; }
+  .g-phones .g-item img { aspect-ratio: 1080 / 2337; object-fit: cover; object-position: top; }
+  .gallery.g-squares { grid-template-columns: repeat(2, 1fr); }
+  .g-squares .g-item img { object-fit: contain; background: var(--surface); }
   .body { display: grid; grid-template-columns: 220px 1fr; gap: 32px; padding-top: clamp(40px, 6vw, 80px); padding-bottom: 0; }
   .big { font-size: clamp(20px, 2vw, 28px); line-height: 1.45; letter-spacing: -.015em; max-width: 38ch; }
   .outcome { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 2.6vw, 38px); letter-spacing: -.03em; line-height: 1.15; max-width: 26ch; margin-bottom: 20px; }
@@ -112,6 +133,7 @@ const gallery = [...d.thumbs, ...d.shots].filter(Boolean);
     .g-item.wide { grid-column: auto; }
     .hero-media { height: 340px; }
     .hero-media :global(.iso-plane) { width: 80%; }
-    .hm-phone :global(.uphone) { width: 220px; }
+    .gallery.g-phones { grid-template-columns: repeat(2, 1fr); }
+    .gallery.g-squares { grid-template-columns: 1fr; }
   }
 </style>

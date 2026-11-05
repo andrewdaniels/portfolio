@@ -1,0 +1,102 @@
+---
+/**
+ * Uncomn's live hero, ported from andrewdaniels/uncomn-marketing
+ * (pages/index.content.html + css/styles.css): an iPhone home screen of Uncomn
+ * widgets over the coastal photo, with Group Health popping out of the phone.
+ * The phone is sized by --un-w; everything inside scales off it (cqw units).
+ */
+import '../styles/uncomn-port.css';
+interface Props { class?: string; width?: string }
+const { class: cls = '', width } = Astro.props;
+---
+<div class:list={['un-port', cls]} style={`--hero-photo:url(/media/uncomn/hero-coast.webp);${width ? `--un-w:${width}` : ''}`} aria-hidden="true">
+  <div class="un-bg"></div>
+  <div class="un-shade"></div>
+  <div class="un-fit">
+<div class="hero__animation">
+    <div class="hero-phone" role="img" aria-label="An iPhone home screen over the hero photo, with Uncomn widgets: Next Up shows Young Adults D-Group on Tuesday at 6:30 PM with this week's lesson and an RSVP, lesson and reflection checklist; Organization Stats shows 3 join requests waiting on a leader; an Attendance widget shows 2 meetings need attendance marked; and a large Group Health widget shows 100% showed up this week, with show rate by group.">
+      <div class="phone-frame phone-frame--hero">
+        <span class="phone-frame__notch"></span>
+        <div class="phone-frame__screen">
+          <div class="hs">
+            <div class="app-screen__statusbar"><span>9:41</span><span class="app-screen__status-right"><span class="status-bars"><i></i><i></i><i></i></span><svg class="status-wifi" viewBox="0 0 16 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1.1 4.3a10.4 10.4 0 0 1 13.8 0"/><path d="M3.6 7a6.9 6.9 0 0 1 8.8 0"/><path d="M6.1 9.7a3.1 3.1 0 0 1 3.8 0"/><circle cx="8" cy="12" r="0.6" fill="currentColor" stroke="none"/></svg><svg class="status-batt" viewBox="0 0 26 13" fill="none" aria-hidden="true"><rect x="0.6" y="0.6" width="21.4" height="11.8" rx="3.4" stroke="currentColor" stroke-width="1.1" opacity="0.4"/><rect x="2.3" y="2.3" width="15" height="8.4" rx="2" fill="currentColor"/><path d="M23.8 4.6c1 .4 1 3.4 0 3.8" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.4"/></svg></span></div>
+            <div class="hs__grid">
+              <div class="wdg wdg--medium"><div class="wdg__head"><img class="wdg__mark" src="/media/uncomn/favicon.png" alt=""><span class="wdg__label">Next meeting &middot; Tue 6:30 PM</span><span class="wdg-chip wdg-chip--accent">In person</span></div><div class="wdg__title">Young Adults D-Group</div><div class="wdg__line"><svg class="wdg-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 14s-4.5-3.9-4.5-7.3a4.5 4.5 0 0 1 9 0C12.5 10.1 8 14 8 14Z"/><circle cx="8" cy="6.6" r="1.6"/></svg><span>The Reyes&rsquo; house &middot; 123 Disney Way</span></div><div class="wdg__line"><svg class="wdg-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h7.5v11H4.5a1 1 0 0 1-1-1V3a.5.5 0 0 1 .5-.5Z"/><path d="M3.5 11.5a1 1 0 0 1 1-1h7"/></svg><span><b>Lesson 4</b> &middot; Abide in the Vine</span></div><ol class="wdg-track" aria-label="Checklist: RSVP done, lesson next, reflection to do"><li class="is-done"><i></i><span>RSVP</span></li><li class="is-now"><i></i><span>Lesson</span></li><li class=""><i></i><span>Reflection</span></li></ol></div>
+              <div class="wdg wdg--small wdg--stat"><div class="wdg__head"><img class="wdg__mark" src="/media/uncomn/favicon.png" alt=""><span class="wdg__label">Pending</span></div><div class="wdg__big wdg__big--xl">3</div><div class="wdg__meta">join requests waiting on a leader</div><span class="wdg-chip wdg-chip--neutral">Grace Community</span></div>
+              <div class="wdg wdg--small wdg--stat"><div class="wdg__head"><img class="wdg__mark" src="/media/uncomn/favicon.png" alt=""><span class="wdg__label">Attendance</span></div><div class="wdg__big wdg__big--xl">2</div><div class="wdg__meta">meetings need attendance</div><span class="wdg-chip wdg-chip--going">Mark &amp; assign</span></div>
+              <div class="hs__apps hs__span4"><span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3.3" width="11" height="10.2" rx="1"/><path d="M2.5 6.4h11M5.6 1.9v2.4M10.4 1.9v2.4"/></svg></span><span class="hs__label">Calendar</span></span><span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.5 8.5c0 2.2-2.2 4-5 4-.5 0-1-.06-1.5-.17L4 13.5l.6-2.1A4.3 4.3 0 0 1 3.5 8.5c0-2.2 2.2-4 5-4s5 1.8 5 4Z"/></svg></span><span class="hs__label">Messages</span></span><span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3.5h4.2c.5 0 .8.3.8.8v9.2c0-.6-.4-1-1-1H3V3.5ZM13 3.5H8.8c-.5 0-.8.3-.8.8v9.2c0-.6.4-1 1-1H13V3.5Z"/></svg></span><span class="hs__label">Bible</span></span><span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 14s-4.5-3.9-4.5-7.3a4.5 4.5 0 0 1 9 0C12.5 10.1 8 14 8 14Z"/><circle cx="8" cy="6.6" r="1.6"/></svg></span><span class="hs__label">Maps</span></span></div>
+              <div class="hs__apps hs__span4">
+                <span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3" width="11" height="10" rx="1.2"/><circle cx="6" cy="6.5" r="1.2"/><path d="m2.8 11.6 3.4-3 2.6 2.2 1.8-1.5 2.9 2.4"/></svg></span><span class="hs__label">Photos</span></span>
+                <span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.3 2.6h9.4v8.1l-2.9 2.7H3.3V2.6Z"/><path d="M12.7 10.7H9.8v2.7M5.6 5.8h4.8M5.6 8.2h3.2"/></svg></span><span class="hs__label">Notes</span></span>
+                <span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12V4l7-1.5v8"/><circle cx="4.5" cy="12" r="1.5"/><circle cx="11.5" cy="10.5" r="1.5"/></svg></span><span class="hs__label">Music</span></span>
+                <span class="hs__app"><span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="2"/><path d="M8 1.8v1.6M8 12.6v1.6M1.8 8h1.6M12.6 8h1.6M3.6 3.6l1.1 1.1M11.3 11.3l1.1 1.1M3.6 12.4l1.1-1.1M11.3 4.7l1.1-1.1"/></svg></span><span class="hs__label">Settings</span></span>
+              </div>
+            </div>
+            <div class="app-home__dots" aria-hidden="true"><i class="is-on"></i><i></i></div>
+            <div class="hs__dock">
+              <span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.2 2.6 3.4 3.9c-.5.4-.6 1-.4 1.6 1.4 3.4 3.7 5.6 7 7 .6.2 1.2.1 1.6-.4l1.3-1.8-2.5-1.6-1.2 1c-1.5-.7-2.7-1.9-3.4-3.4l1-1.2-1.6-2.5Z"/></svg></span>
+              <span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.2" y="3.6" width="11.6" height="8.8" rx="1"/><path d="m2.6 4.4 5.4 4 5.4-4"/></svg></span>
+              <span class="hs__icon hs__icon--uncomn"><img src="/media/uncomn/favicon.png" alt=""></span>
+              <span class="hs__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="m10.4 5.6-1.5 3.3-3.3 1.5 1.5-3.3 3.3-1.5Z"/></svg></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wdg wdg--large wdg--float"><div class="wdg__head"><img class="wdg__mark" src="/media/uncomn/favicon.png" alt=""><span class="wdg__label">Group health &middot; Grace Community</span></div><div class="wdg__big">100%</div><div class="wdg__meta">showed up week of Sep 28 &middot; 81% four-week avg</div><div class="wdg-chart wdg-chart--lg" aria-hidden="true"><span class="wdg-chart__col"><small class="wdg-chart__v">6/8</small><span class="wdg-chart__bar"><i style="--h:100%"></i><b style="--h:75%"></b></span><small class="wdg-chart__x">Sep 7</small></span><span class="wdg-chart__col"><small class="wdg-chart__v">7/8</small><span class="wdg-chart__bar"><i style="--h:100%"></i><b style="--h:88%"></b></span><small class="wdg-chart__x">14</small></span><span class="wdg-chart__col"><small class="wdg-chart__v">&nbsp;</small><span class="wdg-chart__bar wdg-chart__bar--none"><em>&mdash;</em></span><small class="wdg-chart__x">21</small></span><span class="wdg-chart__col is-cur"><small class="wdg-chart__v">8/8</small><span class="wdg-chart__bar"><i style="--h:100%"></i><b style="--h:100%"></b></span><small class="wdg-chart__x">28</small></span></div><div class="wdg-legend"><span><i></i>Showed up</span><span><i class="is-light"></i>RSVP&rsquo;d</span></div><hr class="wdg__rule"><span class="wdg__section">By group &middot; Show rate</span><ul class="wdg-groups"><li class=""><span>Young Adults D-Group</span><span class="wdg-rate"><i style="--p:100%"></i></span><b>100%</b><span></span></li><li class=""><span>Tuesday Group</span><span class="wdg-rate"><i style="--p:88%"></i></span><b>88%</b><span></span></li><li class=""><span>Women&rsquo;s Prayer</span><span class="wdg-rate"><i style="--p:84%"></i></span><b>84%</b><span></span></li><li class="is-flag"><span>Men&rsquo;s Study</span><span class="wdg-rate"><i style="--p:61%"></i></span><b>61%</b><svg class="wdg-ico wdg-ico--info" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 7.4v3.6M8 5.2v.1"/></svg></li></ul><div class="wdg__attention"><svg class="wdg-ico wdg-ico--info" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 7.4v3.6M8 5.2v.1"/></svg><span>1 group needs attention</span></div></div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<style is:global>
+  .un-port { position: absolute; inset: 0; overflow: hidden; container-type: size; }
+  .un-port .un-bg { position: absolute; inset: 0; background: var(--hero-photo) center / cover no-repeat, #6f8ea3; }
+  .un-port .un-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22,27,30,.45) 0%, rgba(22,27,30,0) 45%, rgba(22,27,30,0) 70%, rgba(22,27,30,.35) 100%); }
+  .un-port .un-fit { position: absolute; right: var(--un-right, 12%); bottom: var(--un-bottom, -10%); }
+  .un-port .hero__animation { display: block; }
+  /* assemble: phone rises, widgets stagger in, Group Health pops out (replays on hover) */
+  .un-port .phone-frame--hero { animation: un-rise 1s cubic-bezier(.22,1,.36,1) both; }
+  .un-port .hs .wdg, .un-port .hs__apps, .un-port .hs__dock { animation: un-pop .6s cubic-bezier(.34,1.56,.64,1) both; }
+  .un-port .hs .wdg:nth-of-type(1) { animation-delay: .45s; }
+  .un-port .hs .wdg:nth-of-type(2) { animation-delay: .57s; }
+  .un-port .hs .wdg:nth-of-type(3) { animation-delay: .69s; }
+  .un-port .hs__apps { animation-delay: .81s; }
+  .un-port .hs__dock { animation-delay: .93s; }
+  .un-port .wdg--float { animation: un-out 1.1s cubic-bezier(.34,1.3,.64,1) .95s both, un-bob 6s ease-in-out 2.2s infinite; }
+  @keyframes un-rise { from { transform: translateY(48px); opacity: 0; } }
+  @keyframes un-pop { from { transform: translateY(14px) scale(.94); opacity: 0; } }
+  @keyframes un-out { from { translate: 28% 90px; scale: .82; opacity: 0; } }
+  @keyframes un-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .un-port.replay .phone-frame--hero, .un-port.replay .hs .wdg, .un-port.replay .hs__apps, .un-port.replay .hs__dock, .un-port.replay .wdg--float { animation: none; }
+  @media (prefers-reduced-motion: reduce) { .un-port * { animation: none !important; } }
+</style>
+
+<script>
+  // The phone wallpaper shows the exact patch of photo it covers (same trick as uncomn.co)
+  // and the assemble animation replays when the card is hovered.
+  const ports = document.querySelectorAll<HTMLElement>('.un-port');
+  let iw = 0, ih = 0;
+  const img = new Image();
+  img.onload = () => { iw = img.naturalWidth; ih = img.naturalHeight; ports.forEach(align); };
+  img.src = '/media/uncomn/hero-coast.webp';
+  function align(port: HTMLElement) {
+    const screen = port.querySelector<HTMLElement>('.hs');
+    if (!screen || !iw) return;
+    const pr = port.getBoundingClientRect(), sr = screen.getBoundingClientRect();
+    if (!pr.width) return;
+    const k = Math.max(pr.width / iw, pr.height / ih), w = iw * k, h = ih * k;
+    // undo transforms on the way: use layout sizes relative to the port box
+    screen.style.setProperty('--wall-size', `${w}px ${h}px`);
+    screen.style.setProperty('--wall-x', `${(pr.width - w) / 2 - (sr.left - pr.left)}px`);
+    screen.style.setProperty('--wall-y', `${(pr.height - h) / 2 - (sr.top - pr.top)}px`);
+  }
+  if ('ResizeObserver' in window) ports.forEach((p) => new ResizeObserver(() => align(p)).observe(p));
+  ports.forEach((p) => {
+    const host = p.closest('.iso-host') || p.parentElement;
+    host?.addEventListener('pointerenter', () => {
+      p.classList.add('replay'); void p.offsetWidth; p.classList.remove('replay');
+      setTimeout(() => align(p), 1200);
+    });
+    setTimeout(() => align(p), 1300);
+  });
+</script>

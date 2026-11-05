@@ -1,0 +1,95 @@
+@keyframes kh-flicker{0%,100%{transform:scale(1,1) rotate(0)}25%{transform:scale(.96,1.05) rotate(-2deg)}50%{transform:scale(1.03,.97) rotate(1.5deg)}75%{transform:scale(.98,1.03) rotate(-1deg)}}
+@keyframes kh-pop{0%,12%{transform:scale(0);opacity:0}22%{transform:scale(1.18);opacity:1}30%,88%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes kh-orbit{to{transform:rotate(360deg)}}
+@keyframes kh-counter{to{transform:rotate(-360deg)}}
+@keyframes kh-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes kh-fill{0%,10%{stroke-dashoffset:302}60%,100%{stroke-dashoffset:var(--kh-off,90)}}
+@keyframes kh-bar{0%,10%{transform:scaleX(0)}55%,100%{transform:scaleX(1)}}
+@keyframes kh-rise{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes kh-lift{0%,100%{transform:translateZ(0)}50%{transform:translateZ(22px)}}
+@keyframes kh-glow{0%,100%{opacity:.55}50%{opacity:.9}}
+@keyframes kh-marquee{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.kh-flame,.kh-pop,.kh-orbit,.kh-counter,.kh-float,.kh-ring,.kh-bar,.kh-rise,.kh-lift,.kh-glow,.kh-marquee{animation:none}}
+.kh-root{--kh-page:#F4F4F8;--kh-card:#FFFFFF;--kh-ink:#161B1E;--kh-sub:#4A4F63;--kh-muted:#6A6F83;--kh-faint:#9A9DB0;--kh-line:#E8E8EF;--kh-soft:#F7F7FA;--kh-tint:#EEEBFF;--kh-tint-ink:#4F40E0;--kh-lav:linear-gradient(160deg,#EEEBFF 0%,#F7F6FF 60%);--kh-lavline:#E2DEFF;--kh-warm:#FFF1E2;--kh-tile-edge:transparent;--kh-cta-bg:#FFFFFF;--kh-cta-ink:#161B1E}
+.kh-root[data-kh-theme="dark"]{--kh-page:#0E1113;--kh-card:#1A1F23;--kh-ink:#F2F3F7;--kh-sub:#B4B8C6;--kh-muted:#9095A6;--kh-faint:#6E7386;--kh-line:#2A3036;--kh-soft:#20262B;--kh-tint:#25224A;--kh-tint-ink:#C9C3FF;--kh-lav:linear-gradient(160deg,#25224A 0%,#1A1F23 70%);--kh-lavline:#34306E;--kh-warm:rgba(255,122,26,0.14);--kh-tile-edge:rgba(255,255,255,0.08)}
+.km-hero-bg{position:absolute;inset:0;overflow:hidden;background:#5D86B4 url(/media/knowhim-v2/hero/meadow-hero.webp) center top/cover no-repeat}
+.km-scrim{position:absolute;left:0;right:0;top:0;height:726px;background:linear-gradient(180deg,rgba(10,31,66,.38) 0%,rgba(10,31,66,0) 100%)}
+.km-ground{position:absolute;left:0;right:0;bottom:0;height:230px;background:linear-gradient(180deg,rgba(13,51,20,0) 0%,rgba(13,51,20,.18) 35%,var(--kh-page) 100%);background:linear-gradient(180deg,transparent 0%,color-mix(in srgb,var(--kh-page) 35%,transparent) 45%,color-mix(in srgb,var(--kh-page) 85%,transparent) 78%,var(--kh-page) 100%)}
+/* header sits on the photo as white glass, then turns back to dark glass once you scroll past it */
+/* stage: words, dots and three cards that take turns, 4s each, 12s loop */
+.km-stage-wrap{display:flex;justify-content:center;margin-top:48px}
+.km-stage{position:relative;width:640px;height:350px;flex:none}
+@keyframes km-scene{0%{opacity:0;transform:translateY(28px)}4%{opacity:1;transform:translateY(0)}29%{opacity:1;transform:translateY(0)}33.3%{opacity:0;transform:translateY(-18px)}100%{opacity:0;transform:translateY(-18px)}}
+@keyframes km-word{0%{opacity:0;transform:translateY(22px)}4%{opacity:1;transform:translateY(0)}29%{opacity:1;transform:translateY(0)}33.3%{opacity:0;transform:translateY(-22px)}100%{opacity:0;transform:translateY(-22px)}}
+@keyframes km-dot{0%{width:8px;background:rgba(255,255,255,.5)}4%,29%{width:28px;background:#FFFFFF}33.3%,100%{width:8px;background:rgba(255,255,255,.5)}}
+@keyframes km-grow{0%,3%{transform:scaleX(0)}14%,100%{transform:scaleX(1)}}
+@keyframes km-pop{0%,4%{transform:scale(0);opacity:0}8%{transform:scale(1.15);opacity:1}10%,100%{transform:scale(1);opacity:1}}
+.km-word{position:absolute;left:0;right:0;top:0;text-align:center;font-size:30px;line-height:37px;font-weight:800;letter-spacing:-.8px;color:#FFFFFF;text-shadow:0 2px 12px rgba(10,26,51,.35);opacity:0;animation:km-word 12s cubic-bezier(.22,1,.36,1) infinite both}
+.km-dots{position:absolute;left:0;right:0;top:58px;display:flex;justify-content:center;gap:6px}
+.km-dot{display:block;height:8px;width:8px;border-radius:4px;animation:km-dot 12s ease infinite both}
+.km-card{position:absolute;left:40px;top:88px;width:560px;opacity:0;animation:km-scene 12s cubic-bezier(.22,1,.36,1) infinite both}
+.km-fill{height:100%;border-radius:inherit;transform-origin:left center;animation:km-grow 12s cubic-bezier(.22,1,.36,1) infinite both}
+.km-card p{margin:0}
+/* 1 · Prayers */
+.km-prayers{height:262px;border:1px solid rgba(255,255,255,.24);border-radius:42px;background:linear-gradient(180deg,rgba(45,44,85,.6) 0%,rgba(22,27,30,.6) 100%);-webkit-backdrop-filter:blur(28px) saturate(160%);backdrop-filter:blur(28px) saturate(160%);box-shadow:0 27px 60px rgba(13,8,51,.38),inset 0 1px 0 rgba(255,255,255,.14);overflow:hidden}
+.km-pr-glow{position:absolute;inset:0;background:radial-gradient(60% 85% at 50% 55%,rgba(108,86,229,.13) 0%,rgba(108,86,229,0) 100%)}
+.km-pr-date{position:absolute;left:27px;top:28px;font-size:17px;font-weight:500;color:#B9B8CB}
+.km-pr-title{position:absolute;left:27px;top:50px;font-size:34px;font-weight:800;color:#FFFFFF}
+.km-pr-streak{position:absolute;left:379px;top:35px;width:90px;height:48px;border-radius:26px;background:rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;padding-left:13px}
+.km-pr-streak span{font-size:22.4px;font-weight:700;color:#FFFFFF}
+.km-pr-done{position:absolute;left:482px;top:35px;width:48px;height:48px}
+.km-pr-done img{position:absolute;left:0;top:0}
+.km-pr-done .km-pr-done-check{left:8.5px;top:8.5px}
+.km-pr-week-outline{position:absolute;left:27px;top:139px;width:503px;height:47px;border:2.1px solid #51459B;border-radius:26px}
+.km-pr-week-fill{position:absolute;left:28px;top:140px;width:346px;height:45px;border-radius:26px;background:rgba(104,88,255,.22)}
+.km-pr-days{position:absolute;left:42px;top:115px;display:flex;gap:28.85px}
+.km-pr-day{position:relative;width:42.75px;height:67px;text-align:center}
+.km-pr-day span{display:block;font-size:13.9px;font-weight:600;color:#A7A5BA}
+.km-pr-day.km-today span{color:#C6C1F2}
+.km-pr-day i{position:absolute;left:2px;top:28px;width:38px;height:38px;animation:km-pop 12s cubic-bezier(.34,1.56,.64,1) infinite both}
+.km-pr-day i img{position:absolute;left:0;top:0}
+.km-pr-day i .km-ck{left:6.4px;top:6.4px}
+.km-pr-day b{display:block;margin-top:20px;font-size:15px;font-weight:600;color:#A7A5BA}
+.km-pr-goal{position:absolute;left:27px;top:200px;font-size:17px;font-weight:600;color:#FFFFFF}
+.km-pr-goal-n{position:absolute;right:30px;top:200px;font-size:17px;font-weight:600;color:#C6C1F2}
+.km-pr-bar{position:absolute;left:27px;top:226.5px;width:503px;height:6.4px;border-radius:4.3px;background:#494282;overflow:hidden}
+.km-pr-bar .km-fill{background:#B3A4FF}
+/* 2 · Prayer circle */
+.km-circle{display:flex;flex-direction:column;gap:6px;padding:16px 28px;border-radius:30px;background:rgba(22,27,30,.42);border:1px solid rgba(255,255,255,.18);-webkit-backdrop-filter:blur(28px) saturate(160%);backdrop-filter:blur(28px) saturate(160%);box-shadow:0 28px 35px rgba(5,3,20,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.km-ci-tabs{display:flex;align-items:center;gap:12px;padding-bottom:12px}
+.km-ci-tab{font-size:19px;font-weight:600;color:#8A93A0;padding:10px}
+.km-ci-tab.km-on{font-weight:700;color:#FFFFFF;background:rgba(22,27,30,.55);border-radius:12px;padding:10px 18px}
+.km-ci-sp{flex:1}
+.km-ci-streak{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:20px;background:rgba(212,163,115,.3);font-size:17px;font-weight:700;color:#D4A373}
+.km-ci-streak img{object-fit:contain}
+.km-ci-sum{display:flex;flex-direction:column;gap:12px}
+.km-ci-sum p{font-size:22px;font-weight:700;color:#FFFFFF}
+.km-ci-bar{width:500px;height:8px;border-radius:4px;background:rgba(104,88,255,.3);overflow:hidden}
+.km-ci-bar .km-fill{background:#6B5CFF}
+.km-ci-member{display:flex;align-items:center;gap:18px;padding:8px 0}
+.km-ci-av{width:58px;height:58px;flex:none;display:block}
+.km-ci-name{font-size:21px;font-weight:700;color:#FFFFFF}
+.km-ci-days{display:flex;align-items:center;gap:7px;margin:8px 0}
+.km-ci-days img{display:block}
+.km-ci-miss{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:15px;background:#262C33;color:#6E7682;font-size:13px;font-weight:700}
+.km-ci-meta{font-size:16px;font-weight:500;color:#8A93A0}
+.km-ci-rule{height:1.5px;background:#2A333A}
+/* 3 · Journey */
+.km-journey{display:flex;flex-direction:column;gap:19.3px;padding:23px 27px;border-radius:15.5px;background:rgba(22,27,30,.42);border:1px solid rgba(255,255,255,.18);-webkit-backdrop-filter:blur(28px) saturate(160%);backdrop-filter:blur(28px) saturate(160%);box-shadow:0 10.6px 23px rgba(15,41,31,.3),inset 0 1px 0 rgba(255,255,255,.12)}
+.km-jo-head{display:flex;align-items:center;justify-content:space-between}
+.km-jo-kicker{font-size:12.55px;font-weight:800;letter-spacing:1.35px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.km-jo-title{margin-top:3.9px !important;font-size:29px;line-height:1.05;font-weight:700;letter-spacing:-.97px;color:#FFFFFF}
+.km-jo-sub{margin-top:3.9px !important;font-size:13.5px;line-height:17.4px;font-weight:500;color:#FFFFFF;opacity:.7}
+.km-jo-pill{flex:none;padding:7.7px 13.5px;border-radius:999px;background:rgba(255,255,255,.3);font-size:13.5px;font-weight:800;color:#FFFFFF}
+.km-jo-rows{display:flex;flex-direction:column;gap:13.5px}
+.km-jo-row{display:flex;align-items:center;gap:11.6px}
+.km-jo-row img{width:33px;height:33px;flex:none;display:block}
+.km-jo-row>div{flex:1;display:flex;flex-direction:column;gap:5.8px}
+.km-jo-row p{display:flex;justify-content:space-between;font-size:14.5px;font-weight:800;color:#FFFFFF}
+.km-jo-track{height:7.7px;border-radius:3.9px;background:rgba(104,88,255,.3);overflow:hidden}
+.km-jo-track .km-fill{background:#6858FF}
+.km-jo-note{display:flex;align-items:center;gap:9.7px;font-size:13.5px;line-height:17.4px;font-weight:700;color:#D4A373}
+@media (prefers-reduced-motion:reduce){.km-word,.km-card,.km-dot,.km-fill,.km-pr-day i{animation:none}.km-stage>.km-word:nth-of-type(1),.km-prayers{opacity:1}.km-dot:first-child{width:28px;background:#FFFFFF}}
+@media (max-width:900px){.km-h1{font-size:46px !important;letter-spacing:-1.5px !important}.km-copy{padding-top:24px}.km-stage-wrap{margin-top:40px}}
+[data-kh-theme="dark"] .kh-wgrid img.kh-wd-d{display:block}
+[data-kh-theme="dark"] .kh-wgrid img.kh-wd-l{display:none}

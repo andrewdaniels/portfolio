@@ -1,10 +1,8 @@
 ---
 import site from '../data/site.json';
 import Icon from './Icon.astro';
-import IsoStack from './IsoStack.astro';
-import UncomnMock from './UncomnMock.astro';
-interface Props { knowhim: string[] }
-const { knowhim } = Astro.props;
+import KnowHimHero from './KnowHimHero.astro';
+import UncomnHero from './UncomnHero.astro';
 ---
 <div class="hero-wrap" data-active="0">
 <div class="story-bars" aria-hidden="true">{[0, 1, 2, 3].map(() => <i><b></b></i>)}</div>
@@ -30,22 +28,22 @@ const { knowhim } = Astro.props;
   </article>
 
   <!-- 2. Uncomn -->
-  <article class="tile t-uncomn iso-host" data-i="1">
+  <article class="tile t-uncomn on-photo iso-host" data-i="1">
     <a class="stretch" href="/projects/uncomn" aria-label="Uncomn case study"></a>
     <div class="tile-copy">
       <p class="eyebrow"><span class="now-dot"></span>Building now</p>
       <h2 class="tile-h">Uncomn</h2>
-      <p class="tile-sub">Discipleship reimagined. Meetings, lessons and RSVPs for church groups.</p>
+      <p class="tile-sub">Your next meeting, right on your home screen. Discipleship for church groups.</p>
       <div class="more actions">
         <a class="btn sm" href="/projects/uncomn">Case study <Icon name="arrow" size={14} /></a>
         <a class="btn sm ghost" href="https://uncomn.co" target="_blank" rel="noopener">uncomn.co</a>
       </div>
     </div>
-    <div class="tile-media media-phone"><UncomnMock /></div>
+    <div class="tile-media"><UncomnHero /></div>
   </article>
 
   <!-- 3. KnowHim -->
-  <article class="tile t-knowhim iso-host" data-i="2">
+  <article class="tile t-knowhim on-photo iso-host" data-i="2">
     <a class="stretch" href="/projects/knowhim" aria-label="KnowHim case study"></a>
     <div class="tile-copy">
       <p class="eyebrow"><span class="now-dot"></span>Building now</p>
@@ -56,7 +54,7 @@ const { knowhim } = Astro.props;
         <a class="btn sm ghost" href="https://knowhim.app" target="_blank" rel="noopener">knowhim.app</a>
       </div>
     </div>
-    <div class="tile-media media-iso"><IsoStack images={knowhim} layers={3} /></div>
+    <div class="tile-media"><KnowHimHero variant="tile" /></div>
   </article>
 
   <!-- 4. Past -->
@@ -157,12 +155,16 @@ const { knowhim } = Astro.props;
   .tile-h { font-size: clamp(30px, 3.4vw, 52px); letter-spacing: -.04em; }
   .tile-sub { color: var(--soft); max-width: 24ch; }
 
-  .tile-media { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-  .media-phone { display: grid; place-items: end; padding: 0 clamp(16px, 4vw, 64px); }
-  .media-phone :global(.uphone) { translate: 0 30%; transition: translate .9s var(--ease), transform .9s var(--ease); }
-  .t-uncomn:hover .media-phone :global(.uphone) { translate: 0 12%; }
-  .media-iso { left: 30%; top: 10%; }
-  .media-iso :global(.iso-plane) { width: 78%; }
+  .tile-media { position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; overflow: hidden; }
+  .on-photo { color: #fff; }
+  .on-photo .tile-copy { text-shadow: 0 1px 14px rgba(0,0,0,.35); }
+  .on-photo .eyebrow { color: rgba(255,255,255,.8); }
+  .on-photo .tile-sub { color: rgba(255,255,255,.88); }
+  .on-photo .tile-media::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background: linear-gradient(160deg, rgba(10,14,18,.55) 0%, rgba(10,14,18,.12) 42%, rgba(10,14,18,0) 60%); }
+  .on-photo .btn { background: #fff; color: #101416; }
+  .on-photo .btn.ghost { background: rgba(255,255,255,.14); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); backdrop-filter: blur(10px); }
+  .on-photo::before { display: none; }
 
   .t-past .past-stats { display: grid; grid-template-columns: repeat(3, auto); gap: clamp(16px, 2.5vw, 40px); justify-content: start; }
   .past-stats div { display: grid; }
@@ -204,9 +206,9 @@ const { knowhim } = Astro.props;
     .t-intro { justify-content: flex-start; }
     .t-intro h1 { font-size: 40px; }
     .tile-h { font-size: 44px; }
-    .media-phone { place-items: end center; }
-    .media-phone :global(.uphone) { translate: 0 22%; width: 210px; }
-    .media-iso { left: 0; top: 34%; }
+    .t-uncomn :global(.un-port) { --un-right: 50%; --un-w: min(64cqw, 270px); --un-bottom: -22%; }
+    .t-uncomn :global(.un-fit) { translate: 36% 0; }
+    .t-knowhim :global(.kh-port) { --kh-left: 50%; --kh-top: 66%; --kh-scale: min(calc(100cqw / 700px), 0.62); }
     .t-past { justify-content: flex-start; gap: 32px; }
     .t-past .past-stats { grid-template-columns: 1fr; gap: 22px; }
     .past-stats b { font-size: 56px; }

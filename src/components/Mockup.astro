@@ -1,0 +1,13 @@
+---
+/** Picks the right animated mockup for a project: the live KnowHim or Uncomn hero, or the iso stack. */
+import IsoStack from './IsoStack.astro';
+import KnowHimHero from './KnowHimHero.astro';
+import UncomnHero from './UncomnHero.astro';
+interface Props { project: any; variant?: 'full' | 'tile'; layers?: number; phone?: string }
+const { project, variant = 'full', layers = 3, phone } = Astro.props;
+const d = project.data;
+const imgs = [d.cover, ...d.thumbs, ...d.shots].filter(Boolean);
+---
+{d.mockup === 'knowhim' ? <KnowHimHero variant={variant} />
+  : d.mockup === 'uncomn' ? <UncomnHero width={phone} />
+  : <IsoStack images={imgs} layers={layers} />}

@@ -1,15 +1,13 @@
 ---
-import IsoStack from './IsoStack.astro';
-import UncomnMock from './UncomnMock.astro';
+import Mockup from './Mockup.astro';
 import Icon from './Icon.astro';
 interface Props { project: any; size?: 'lg' | 'md' }
 const { project, size = 'md' } = Astro.props;
 const d = project.data;
-const imgs = [d.cover, ...d.thumbs, ...d.shots].filter(Boolean);
 ---
 <a href={`/projects/${project.id}`} class:list={['pcard iso-host reveal', size]} data-cats={d.category.toLowerCase()}>
   <div class="pcard-media">
-    {d.mockup === 'uncomn' ? <div class="pm-phone"><UncomnMock /></div> : <IsoStack images={imgs} layers={3} />}
+    <Mockup project={project} variant="tile" />
   </div>
   <div class="pcard-body">
     <div class="pcard-top">
@@ -37,9 +35,9 @@ const imgs = [d.cover, ...d.thumbs, ...d.shots].filter(Boolean);
     background: radial-gradient(90% 80% at 50% 30%, var(--surface-2), var(--surface));
   }
   .lg .pcard-media { aspect-ratio: 16 / 10; }
-  .pm-phone { position: absolute; inset: 0; display: grid; place-items: end center; }
-  .pm-phone :global(.uphone) { width: 190px; translate: 0 22%; }
-  .pcard:hover .pm-phone :global(.uphone) { translate: 0 18%; }
+  .pcard-media :global(.un-port) { --un-right: 50%; --un-bottom: -16%; }
+  .pcard-media :global(.un-fit) { translate: 50% 0; }
+  .pcard-media :global(.kh-port) { --kh-left: 50%; --kh-top: 40%; --kh-scale: min(calc(100cqw / 720px), calc(100cqh / 520px), 1.1); }
   .pcard-body { padding: 18px 20px 20px; display: grid; gap: 8px; }
   .pcard-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   .pcard-name { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -.025em; }
