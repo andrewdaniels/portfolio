@@ -123,7 +123,7 @@ import UncomnHero from './UncomnHero.astro';
   .tile {
     --mx: 50%; --my: 50%;
     position: relative; overflow: hidden; isolation: isolate;
-    border-radius: 28px;
+    border-radius: var(--radius-inset);
     background: var(--surface);
     padding: clamp(20px, 2.2vw, 32px);
     display: flex; flex-direction: column; justify-content: space-between;

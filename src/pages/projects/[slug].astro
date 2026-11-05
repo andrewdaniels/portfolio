@@ -98,7 +98,7 @@ const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.
   dd { margin: 2px 0 0; font-weight: 500; }
   .hero-media {
     position: relative; margin: 0 8px; height: clamp(360px, 62vh, 720px);
-    border-radius: var(--radius-lg); overflow: hidden;
+    border-radius: var(--radius-inset); overflow: hidden;
     background: radial-gradient(80% 80% at 50% 35%, color-mix(in oklab, var(--accent) 14%, var(--surface-2)), var(--surface));
   }
   .hero-media :global(.iso-plane) { width: 52%; }
