@@ -101,7 +101,6 @@ const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.
     border-radius: var(--radius-inset); overflow: hidden;
     background: radial-gradient(80% 80% at 50% 35%, color-mix(in oklab, var(--accent) 14%, var(--surface-2)), var(--surface));
   }
-  .hero-media :global(.iso-plane) { width: 52%; }
   .hero-media :global(.un-port) { --un-right: 50%; --un-bottom: -12%; }
   .hero-media :global(.un-fit) { translate: 50% 0; }
   .video-wrap { padding-top: clamp(40px, 6vw, 80px); }
@@ -132,7 +131,6 @@ const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.
     .gallery { grid-template-columns: 1fr; }
     .g-item.wide { grid-column: auto; }
     .hero-media { height: 340px; }
-    .hero-media :global(.iso-plane) { width: 80%; }
     .gallery.g-phones { grid-template-columns: repeat(2, 1fr); }
     .gallery.g-squares { grid-template-columns: 1fr; }
   }
