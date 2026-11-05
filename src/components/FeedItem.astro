@@ -1,0 +1,71 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+export interface FeedEntry {
+  kind: 'post' | 'shot' | 'project';
+  id: string;
+  title: string;
+  text: string;
+  date: Date;
+  images: string[];
+  href?: string;
+  meta?: string;
+}
+interface Props { item: FeedEntry }
+const { item } = Astro.props;
+const label = { post: 'Wrote', shot: 'Shipped', project: 'Case study' }[item.kind];
+const imgs = item.images.slice(0, 4);
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<article class="fitem reveal" id={`${item.kind}-${item.id}`}>
+  <img class="fav" src={site.avatar} alt="" width="44" height="44" />
+  <div class="fmain">
+    <header>
+      <strong>{site.name}</strong>
+      <span class="faint">@{site.handle} · {fmt(item.date)}</span>
+      <span class={`kind k-${item.kind}`}>{label}</span>
+    </header>
+    <h3 class="ftitle">{item.href ? <a href={item.href}>{item.title}</a> : item.title}</h3>
+    {item.text && <p class="ftext">{item.text}</p>}
+    {imgs.length > 0 && (
+      <div class={`fmedia n${imgs.length}`}>
+        {imgs.map((src) => (
+          <button class="fimg" data-lightbox={src} aria-label="Enlarge image"><img src={src} alt="" loading="lazy" decoding="async" /></button>
+        ))}
+      </div>
+    )}
+    <footer>
+      {item.meta && <span class="chip">{item.meta}</span>}
+      {item.href && <a class="link-arrow" href={item.href}>{item.kind === 'post' ? 'Read post' : item.kind === 'project' ? 'View case study' : 'View project'} <Icon name="arrow" size={14} /></a>}
+    </footer>
+  </div>
+</article>
+
+<style>
+  .fitem { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .fav { border-radius: 50%; }
+  .fmain { min-width: 0; display: grid; gap: 8px; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 15px; }
+  header .faint { font-size: 14px; }
+  .kind { margin-left: auto; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: var(--surface); color: var(--soft); }
+  .k-post { background: var(--accent-soft); color: var(--accent); }
+  .ftitle { font-size: 20px; letter-spacing: -.02em; }
+  .ftitle a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .ftext { color: var(--soft); font-size: 16px; }
+  .fmedia { display: grid; gap: 4px; border-radius: var(--radius-lg); overflow: hidden; margin-top: 6px; }
+  .fmedia.n2, .fmedia.n4 { grid-template-columns: 1fr 1fr; }
+  .fmedia.n3 { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
+  .fmedia.n3 .fimg:first-child { grid-row: span 2; }
+  .fimg { display: block; overflow: hidden; background: var(--surface); cursor: zoom-in; }
+  .fimg img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 10; transition: transform .8s var(--ease); }
+  .fmedia.n1 .fimg img { aspect-ratio: auto; max-height: 560px; object-position: top; }
+  .fmedia.n3 .fimg:first-child img { aspect-ratio: auto; }
+  .fimg:hover img { transform: scale(1.03); }
+  footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 4px; }
+  footer:empty { display: none; }
+  @media (max-width: 560px) {
+    .fitem { grid-template-columns: 36px 1fr; gap: 10px; }
+    .fav { width: 36px; height: 36px; }
+    .kind { margin-left: 0; }
+  }
+</style>

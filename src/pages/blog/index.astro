@@ -1,0 +1,45 @@
+---
+import Shell from '../../layouts/Shell.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts } from '../../lib/content';
+const posts = await getPosts();
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<Shell title="Writing" description="Notes on product design, building with AI, and shipping products as a founding designer.">
+  <header class="wrap bhead">
+    <p class="eyebrow">Writing</p>
+    <h1 class="display h-xl">Notes from the build.</h1>
+    <p class="lede" style="margin-top:16px">Product design, building with Claude Code and FlutterFlow, and what I'm learning from shipping Uncomn and KnowHim.</p>
+  </header>
+  <section class="wrap">
+    {posts.length === 0 && <p class="muted">First posts are on the way.</p>}
+    <ol class="plist">
+      {posts.map((p) => (
+        <li class="reveal">
+          <a href={`/blog/${p.id}`} class="prow">
+            <time class="faint mono">{fmt(p.data.date)}</time>
+            <div>
+              <h2 class="ptitle">{p.data.title}</h2>
+              {p.data.excerpt && <p class="muted">{p.data.excerpt}</p>}
+            </div>
+            <span class="pgo"><Icon name="arrow" size={18} /></span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+  <Footer />
+</Shell>
+<style>
+  .bhead { padding-top: clamp(40px, 7vw, 96px); }
+  .bhead h1 { margin-top: 14px; }
+  .plist { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+  .prow { display: grid; grid-template-columns: 180px 1fr 40px; gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .mono { font-family: var(--font-mono); font-size: 13px; padding-top: 6px; }
+  .ptitle { font-size: clamp(22px, 2.2vw, 30px); margin-bottom: 6px; transition: color .3s; }
+  .prow:hover .ptitle { color: var(--accent); }
+  .pgo { padding-top: 6px; transition: transform .3s var(--ease); }
+  .prow:hover .pgo { transform: translate(3px, -3px); }
+  @media (max-width: 760px) { .prow { grid-template-columns: 1fr; gap: 6px; } .pgo { display: none; } }
+</style>

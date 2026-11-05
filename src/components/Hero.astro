@@ -1,0 +1,286 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+import IsoStack from './IsoStack.astro';
+import UncomnMock from './UncomnMock.astro';
+interface Props { knowhim: string[] }
+const { knowhim } = Astro.props;
+---
+<div class="hero-wrap" data-active="0">
+<div class="story-bars" aria-hidden="true">{[0, 1, 2, 3].map(() => <i><b></b></i>)}</div>
+<section class="hero" data-hot="" aria-label="Introduction">
+
+  <!-- 1. Intro -->
+  <article class="tile t-intro iso-host" data-i="0">
+    <div class="tile-copy">
+      <span class="chip live">Open to fractional work</span>
+      <p class="eyebrow">{site.intro.eyebrow}</p>
+      <h1 class="display">{site.intro.headline}</h1>
+      <div class="more">
+        <p class="muted">{site.intro.body}</p>
+        <div class="actions">
+          <button class="btn sm" data-open="about">More about me</button>
+          <button class="btn sm ghost" data-open="contact">Let's talk</button>
+        </div>
+      </div>
+    </div>
+    <div class="intro-glyph" aria-hidden="true">
+      <span>Design</span><span>Build</span><span>Ship</span>
+    </div>
+  </article>
+
+  <!-- 2. Uncomn -->
+  <article class="tile t-uncomn iso-host" data-i="1">
+    <a class="stretch" href="/projects/uncomn" aria-label="Uncomn case study"></a>
+    <div class="tile-copy">
+      <p class="eyebrow"><span class="now-dot"></span>Building now</p>
+      <h2 class="tile-h">Uncomn</h2>
+      <p class="tile-sub">Discipleship reimagined. Meetings, lessons and RSVPs for church groups.</p>
+      <div class="more actions">
+        <a class="btn sm" href="/projects/uncomn">Case study <Icon name="arrow" size={14} /></a>
+        <a class="btn sm ghost" href="https://uncomn.co" target="_blank" rel="noopener">uncomn.co</a>
+      </div>
+    </div>
+    <div class="tile-media media-phone"><UncomnMock /></div>
+  </article>
+
+  <!-- 3. KnowHim -->
+  <article class="tile t-knowhim iso-host" data-i="2">
+    <a class="stretch" href="/projects/knowhim" aria-label="KnowHim case study"></a>
+    <div class="tile-copy">
+      <p class="eyebrow"><span class="now-dot"></span>Building now</p>
+      <h2 class="tile-h">KnowHim</h2>
+      <p class="tile-sub">Grow, pray and know Him. Together. A prayer and small-group app.</p>
+      <div class="more actions">
+        <a class="btn sm" href="/projects/knowhim">Case study <Icon name="arrow" size={14} /></a>
+        <a class="btn sm ghost" href="https://knowhim.app" target="_blank" rel="noopener">knowhim.app</a>
+      </div>
+    </div>
+    <div class="tile-media media-iso"><IsoStack images={knowhim} layers={3} /></div>
+  </article>
+
+  <!-- 4. Past -->
+  <article class="tile t-past" data-i="3">
+    <a class="stretch" href="/work" aria-label="Past work"></a>
+    <div class="tile-copy">
+      <p class="eyebrow">Before this</p>
+      <div class="past-stats">
+        <div><b>13<small>yrs</small></b><span>Leading Kaleo Design</span></div>
+        <div><b>2.2<small>M</small></b><span>FlutterFlow users, from zero</span></div>
+        <div><b>$30<small>M+</small></b><span>Raised at FlutterFlow</span></div>
+      </div>
+      <div class="more actions">
+        <a class="btn sm" href="/work">Past work <Icon name="arrow" size={14} /></a>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div>{[...site.clients, ...site.clients].map((c) => <span>{c}</span>)}</div>
+    </div>
+  </article>
+
+</section>
+<div class="story-hint" aria-hidden="true">Tap to continue · Scroll for more</div>
+</div>
+
+<style>
+  .hero-wrap { position: relative; }
+  .hero {
+    --c1: 1fr; --c2: 1fr; --r1: 1fr; --r2: 1fr;
+    position: relative;
+    height: calc(100dvh - 16px);
+    min-height: 560px;
+    padding: 8px;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: var(--c1) var(--c2);
+    grid-template-rows: var(--r1) var(--r2);
+    transition: grid-template-columns .7s var(--ease), grid-template-rows .7s var(--ease);
+  }
+  .hero[data-hot='0'] { --c1: 1.5fr; --r1: 1.35fr; }
+  .hero[data-hot='1'] { --c2: 1.5fr; --r1: 1.35fr; }
+  .hero[data-hot='2'] { --c1: 1.5fr; --r2: 1.35fr; }
+  .hero[data-hot='3'] { --c2: 1.5fr; --r2: 1.35fr; }
+
+  .tile {
+    --mx: 50%; --my: 50%;
+    position: relative; overflow: hidden; isolation: isolate;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    padding: clamp(20px, 2.4vw, 36px);
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: opacity .5s, filter .5s;
+    min-width: 0; min-height: 0;
+  }
+  .tile::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(520px circle at var(--mx) var(--my), var(--accent-soft), transparent 60%);
+    opacity: 0; transition: opacity .4s;
+  }
+  .tile:hover::before { opacity: 1; }
+  .hero[data-hot]:not([data-hot='']) .tile:not(:hover) { opacity: .55; filter: saturate(.6); }
+  .stretch { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+  .tile-copy { position: relative; z-index: 2; max-width: 34rem; pointer-events: none; }
+  .tile-copy a, .tile-copy button { pointer-events: auto; }
+  .tile-copy > * + * { margin-top: 12px; }
+  .more {
+    display: grid; gap: 14px;
+    opacity: 0; translate: 0 10px; max-height: 0;
+    transition: opacity .4s, translate .6s var(--ease), max-height .6s var(--ease);
+  }
+  .tile:hover .more, .tile:focus-within .more { opacity: 1; translate: 0 0; max-height: 220px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .now-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: 1px; animation: pulse-a 2s infinite; }
+  @keyframes pulse-a { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+  /* intro */
+  .t-intro { background: var(--text); color: var(--bg); }
+  .t-intro .eyebrow { color: color-mix(in oklab, var(--bg) 55%, transparent); }
+  .t-intro .muted { color: color-mix(in oklab, var(--bg) 70%, transparent); }
+  .t-intro .chip { background: color-mix(in oklab, var(--bg) 12%, transparent); color: var(--bg); }
+  .t-intro .btn { background: var(--bg); color: var(--text); }
+  .t-intro .btn.ghost { background: transparent; color: var(--bg); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--bg) 30%, transparent); }
+  .t-intro h1 { font-size: clamp(30px, 3.6vw, 56px); max-width: 15ch; }
+  .intro-glyph {
+    position: absolute; right: -2%; bottom: -6%; z-index: 0;
+    display: grid; text-align: right;
+    font-family: var(--font-display); font-weight: 900; letter-spacing: -.06em; line-height: .82;
+    font-size: clamp(44px, 5vw, 92px);
+    color: color-mix(in oklab, var(--bg) 9%, transparent);
+    transition: color .6s, translate .9s var(--ease);
+  }
+  .intro-glyph span { transition: translate .9s var(--ease); }
+  .t-intro:hover .intro-glyph { color: var(--accent); }
+  .t-intro:hover .intro-glyph span:nth-child(1) { translate: -24px 0; }
+  .t-intro:hover .intro-glyph span:nth-child(2) { translate: -12px 0; }
+  .t-intro:hover .intro-glyph { translate: 0 -8px; }
+
+  .tile-h { font-size: clamp(30px, 3.4vw, 52px); letter-spacing: -.04em; }
+  .tile-sub { color: var(--soft); max-width: 24ch; }
+
+  .tile-media { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .media-phone { display: grid; place-items: end; padding: 0 clamp(16px, 4vw, 64px); }
+  .media-phone :global(.uphone) { translate: 0 30%; transition: translate .9s var(--ease), transform .9s var(--ease); }
+  .t-uncomn:hover .media-phone :global(.uphone) { translate: 0 12%; }
+  .media-iso { left: 30%; top: 10%; }
+  .media-iso :global(.iso-plane) { width: 78%; }
+
+  .t-past .past-stats { display: grid; grid-template-columns: repeat(3, auto); gap: clamp(16px, 2.5vw, 40px); justify-content: start; }
+  .past-stats div { display: grid; }
+  .past-stats b { font-family: var(--font-display); font-size: clamp(34px, 3.8vw, 60px); letter-spacing: -.045em; line-height: 1; transition: color .4s; }
+  .past-stats b small { font-size: .45em; letter-spacing: -.02em; color: var(--soft); margin-left: 2px; }
+  .past-stats span { font-size: 14px; color: var(--soft); max-width: 14ch; line-height: 1.35; margin-top: 6px; }
+  .t-past:hover .past-stats b { color: var(--accent); }
+  .marquee {
+    position: relative; z-index: 0; overflow: hidden; margin: 0 calc(-1 * clamp(20px, 2.4vw, 36px));
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .marquee div { display: flex; gap: 36px; width: max-content; animation: marquee 40s linear infinite; }
+  .t-past:hover .marquee div { animation-duration: 16s; }
+  .marquee span { font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -.02em; color: var(--faint); white-space: nowrap; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  .story-bars, .story-hint { display: none; }
+
+  @media (max-width: 1100px) and (min-width: 761px) {
+    .t-past .past-stats { grid-template-columns: repeat(2, auto); }
+  }
+
+  /* ---------- mobile: the quadrants become stories ---------- */
+  @media (max-width: 760px) {
+    .hero {
+      height: calc(100dvh - 76px);
+      min-height: 0;
+      display: flex; gap: 0; padding: 8px;
+      overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .hero::-webkit-scrollbar { display: none; }
+    .tile { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; padding: 56px 22px 28px; }
+    .tile + .tile { margin-left: 8px; }
+    .hero[data-hot] .tile:not(:hover) { opacity: 1; filter: none; }
+    .more { opacity: 1; translate: 0 0; max-height: none; }
+    .stretch { pointer-events: none; }
+    .t-intro { justify-content: flex-start; }
+    .t-intro h1 { font-size: 40px; }
+    .tile-h { font-size: 44px; }
+    .media-phone { place-items: end center; }
+    .media-phone :global(.uphone) { translate: 0 22%; width: 210px; }
+    .media-iso { left: 0; top: 34%; }
+    .t-past { justify-content: flex-start; gap: 32px; }
+    .t-past .past-stats { grid-template-columns: 1fr; gap: 22px; }
+    .past-stats b { font-size: 56px; }
+    .story-bars {
+      display: flex; gap: 4px; position: absolute; z-index: 5; top: 22px; left: 30px; right: 30px; pointer-events: none;
+      color: var(--text); transition: color .3s;
+    }
+    .hero-wrap[data-active='0'] .story-bars, .hero-wrap[data-active='0'] .story-hint { color: var(--bg); }
+    .hero-wrap:not([data-active='0']) .story-hint { opacity: 0; }
+    .story-bars i { flex: 1; height: 3px; border-radius: 3px; background: color-mix(in oklab, currentColor 22%, transparent); overflow: hidden; }
+    .story-bars b { display: block; height: 100%; width: 0; background: currentColor; border-radius: 3px; }
+    .intro-glyph { display: none; }
+    .story-hint {
+      display: block; position: absolute; bottom: 18px; left: 0; right: 0; z-index: 5; pointer-events: none;
+      text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--soft); opacity: .7;
+    }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('.hero');
+  if (hero) {
+    const tiles = [...hero.querySelectorAll<HTMLElement>('.tile')];
+    const mobile = matchMedia('(max-width: 760px)');
+
+    // desktop: hovered quadrant grows; spotlight follows the cursor
+    tiles.forEach((t) => {
+      t.addEventListener('pointerenter', () => { if (!mobile.matches) hero.dataset.hot = t.dataset.i!; });
+      t.addEventListener('pointermove', (e) => {
+        const r = t.getBoundingClientRect();
+        t.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        t.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    });
+    hero.addEventListener('pointerleave', () => { hero.dataset.hot = ''; });
+
+    // mobile: stories
+    const wrap = hero.parentElement!;
+    const bars = [...wrap.querySelectorAll<HTMLElement>('.story-bars b')];
+    const DURATION = 6000;
+    let idx = 0, elapsed = 0, last = 0, paused = false, raf = 0;
+    const current = () => Math.round(hero.scrollLeft / hero.clientWidth);
+    const go = (i: number) => {
+      idx = (i + tiles.length) % tiles.length;
+      elapsed = 0;
+      hero.scrollTo({ left: idx * (hero.scrollWidth / tiles.length), behavior: 'smooth' });
+    };
+    const tick = (now: number) => {
+      if (!mobile.matches) { raf = 0; return; }
+      const dt = last ? now - last : 0; last = now;
+      if (!paused && !document.hidden) elapsed += dt;
+      if (elapsed >= DURATION) go(idx + 1);
+      wrap.dataset.active = String(idx);
+      bars.forEach((b, i) => (b.style.width = i < idx ? '100%' : i === idx ? `${Math.min(100, (elapsed / DURATION) * 100)}%` : '0%'));
+      raf = requestAnimationFrame(tick);
+    };
+    const start = () => { if (mobile.matches && !raf) { last = 0; raf = requestAnimationFrame(tick); } };
+    mobile.addEventListener('change', start);
+    start();
+
+    let scrollT = 0;
+    hero.addEventListener('scroll', () => {
+      clearTimeout(scrollT);
+      scrollT = window.setTimeout(() => { const c = current(); if (c !== idx) { idx = c; elapsed = 0; } }, 80);
+    }, { passive: true });
+    hero.addEventListener('pointerdown', () => { paused = true; });
+    window.addEventListener('pointerup', () => { paused = false; });
+    hero.addEventListener('click', (e) => {
+      if (!mobile.matches) return;
+      if ((e.target as HTMLElement).closest('a, button')) return;
+      const x = e.clientX - hero.getBoundingClientRect().left;
+      go(x < hero.clientWidth * 0.3 ? idx - 1 : idx + 1);
+    });
+    // stop the autoplay once the story is scrolled out of view
+    new IntersectionObserver(([en]) => { paused = !en.isIntersecting; }, { threshold: 0.4 }).observe(hero);
+  }
+</script>

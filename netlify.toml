@@ -1,0 +1,27 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Old Webflow URLs → new routes (case-study URLs /projects/:slug are unchanged)
+[[redirects]]
+  from = "/project"
+  to = "/work"
+  status = 301
+
+[[redirects]]
+  from = "/projects"
+  to = "/work"
+  status = 301
+
+[[redirects]]
+  from = "/projects/tribe-social-2yzg7"
+  to = "/projects/tribe-social"
+  status = 301
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

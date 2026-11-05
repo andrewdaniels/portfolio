@@ -1,0 +1,18 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+---
+<footer class="footer">
+  <p class="eyebrow" style="color:rgba(244,244,242,.5)">Contact</p>
+  <h2 class="display h-xl">Anything in mind? Let's talk.</h2>
+  <div class="row">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" data-open="contact">Start a conversation <Icon name="arrow" size={16} /></button>
+      <a class="btn ghost" href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+    <div class="socials">
+      {site.socials.map((s) => <a href={s.url} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.icon} size={18} /></a>)}
+    </div>
+  </div>
+  <div class="row"><small>© {new Date().getFullYear()} {site.name} · {site.location}</small><small>Working remote since {site.remoteSince}</small></div>
+</footer>

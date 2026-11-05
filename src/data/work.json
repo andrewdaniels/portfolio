@@ -1,0 +1,30 @@
+[
+  {
+    "role": "Founder & Studio Head",
+    "company": "Kaleo Design",
+    "years": "2013–2025",
+    "description": "Built and operated a product design studio from zero — acquiring clients, leading projects end-to-end, and growing a portfolio spanning healthcare, fintech, AI, and enterprise SaaS. Developed a \"Design-Led Development\" methodology that compressed time-to-ship by aligning UX, engineering, and business goals from day one. Clients include the WHO, Accenture, Chili's, Teachable, Orkin, and Mount Sinai.",
+    "badge": null
+  },
+  {
+    "role": "Head of Design",
+    "company": "FlutterFlow",
+    "years": "2020–2024",
+    "description": "Owned product design vision, UX strategy, and UI execution for FlutterFlow's visual development platform — a no-code/low-code builder used by millions of developers and designers worldwide.Grew platform to 2.3M+ user signups over 3.5 years through product-led design decisions.",
+    "badge": "/media/logos/logos_y_combinator_logo.svg"
+  },
+  {
+    "role": "Lead Designer, Multi-Platform",
+    "company": "CardFree",
+    "years": "2020–2021",
+    "description": "Led product design across CardFree's suite of contactless ordering and payments products for hospitality and venue clients. Designed multi-platform experiences (iOS, Android, web) balancing speed, simplicity, and high transaction volume constraints.",
+    "badge": null
+  },
+  {
+    "role": "Design Systems Engineer & Product Designer",
+    "company": "App Orchid",
+    "years": "2019–2020",
+    "description": "Led design sprints, user research, and rapid prototyping for early-stage startups in healthcare and fintech. Focused on MVP-first strategies to accelerate product-market fit. Collaborated with Google and Flutter teams on showcase products for Google I/O and Cloud Next.",
+    "badge": null
+  }
+]

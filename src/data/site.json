@@ -1,0 +1,50 @@
+{
+  "name": "Andrew Daniels",
+  "handle": "andrewdaniels",
+  "role": "Founding product designer",
+  "location": "San Antonio, TX",
+  "remoteSince": 2012,
+  "email": "hello@andrewdaniels.design",
+  "avatar": "/media/andrew.svg",
+  "title": "Andrew Daniels: Founding Product Designer",
+  "description": "I'm a founding product designer. I've spent 13 years helping startups design and ship products, and now I'm building Uncomn and KnowHim.",
+  "intro": {
+    "eyebrow": "Hey, I'm Andrew",
+    "headline": "I design and ship products, from a blank doc to live in the App Store.",
+    "body": "I'm a fractional founding designer. I help founders launch products using design thinking and Claude Code, and I carry intuitive experiences all the way through to deployment."
+  },
+  "quote": "I use AI to augment my ignorance, not outsource my intelligence.",
+  "past": {
+    "headline": "13 years at Kaleo Design. 3.5 years leading design at FlutterFlow.",
+    "body": "I ran Kaleo Design, my product studio, for 13 years. I also spent three and a half years as Head of Design at FlutterFlow, where we went from zero to 2.2M users and helped raise $30M+."
+  },
+  "stats": [
+    { "value": "13+", "label": "Years designing products" },
+    { "value": "2.2M", "label": "FlutterFlow users, from zero" },
+    { "value": "$135M", "label": "Raised by teams I've worked with" },
+    { "value": "220+", "label": "Projects shipped" }
+  ],
+  "clients": ["Chili's", "World Health Organization", "Mount Sinai", "FlutterFlow", "Torchy's", "Teachable", "Dunkin'", "Orkin", "Accenture", "Deloitte", "KPMG", "Infosys", "RentCheck", "US Xpress", "ChurchCalls.ai"],
+  "awards": [
+    { "title": "Golden Kitty: No-Code Tool of the Year", "org": "Product Hunt", "year": "2021", "note": "FlutterFlow" },
+    { "title": "Community Member of the Year", "org": "Community Award", "year": "2024", "note": "Education platform" }
+  ],
+  "process": [
+    { "step": "Discover", "title": "Competitive analysis & audit" },
+    { "step": "Define", "title": "Design system foundation" },
+    { "step": "Design", "title": "UI iteration in Figma" },
+    { "step": "Build", "title": "Frontend delivery with FlutterFlow & Claude Code" },
+    { "step": "Ship", "title": "Launch, measure, iterate" }
+  ],
+  "socials": [
+    { "label": "X", "url": "https://x.com/design_nocodeio", "icon": "x" },
+    { "label": "Dribbble", "url": "https://dribbble.com/andrewdaniels", "icon": "dribbble" }
+  ],
+  "contact": {
+    "workTypes": [
+      { "value": "Full-Time", "budgets": ["$160k – $200k + equity", "$225k – $300k"] },
+      { "value": "Part-Time Contract Work", "budgets": ["$12k / mo", "$18k / mo"] },
+      { "value": "Fractional Consulting", "budgets": ["$12k / mo", "$18k / mo"] }
+    ]
+  }
+}

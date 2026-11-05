@@ -1,0 +1,177 @@
+---
+import '../styles/global.css';
+import site from '../data/site.json';
+import Icon from '../components/Icon.astro';
+import AboutDialog from '../components/AboutDialog.astro';
+import ContactDialog from '../components/ContactDialog.astro';
+import Lightbox from '../components/Lightbox.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  /** open the About or Contact sheet on load (used by /about and /contact) */
+  openSheet?: 'about' | 'contact';
+}
+const { title, description = site.description, image = '/media/og.png', openSheet } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : site.title;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const is = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) ? 'page' : undefined;
+const nav = [
+  { href: '/', label: 'Home', icon: 'home', current: is('/') },
+  { href: '/work', label: 'Work', icon: 'work', current: is('/work') || is('/projects') },
+  { href: '/feed', label: 'Feed', icon: 'feed', current: is('/feed') },
+  { href: '/blog', label: 'Writing', icon: 'pen', current: is('/blog') },
+];
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name}: Writing`} href="/rss.xml" />
+    <meta name="theme-color" content="#101416" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap" />
+    <script is:inline>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body data-open-sheet={openSheet}>
+    <div class="shell">
+      <nav class="sidenav" aria-label="Primary">
+        <a href="/" class="brand" aria-label="Andrew Daniels, home">AD</a>
+        {nav.map((n) => (
+          <a class="navlink" href={n.href} aria-current={n.current} aria-label={n.label}>
+            <Icon name={n.icon} /><span class="tip">{n.label}</span>
+          </a>
+        ))}
+        <button class="navlink" data-open="about" aria-label="About"><Icon name="user" /><span class="tip">About</span></button>
+        <button class="navlink" data-open="contact" aria-label="Contact"><Icon name="mail" /><span class="tip">Contact</span></button>
+        <div class="spacer"></div>
+        {site.socials.map((s) => (
+          <a class="navlink" href={s.url} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.icon} size={18} /><span class="tip">{s.label}</span></a>
+        ))}
+        <button class="navlink theme-toggle" aria-label="Toggle light and dark mode">
+          <span class="moon"><Icon name="moon" /></span><span class="sun"><Icon name="sun" /></span>
+          <span class="tip">Light / dark</span>
+        </button>
+      </nav>
+
+      <div class="stage">
+        <main class="scroller" id="scroller">
+          <slot />
+        </main>
+      </div>
+
+      <nav class="mobilenav" aria-label="Primary">
+        <div class="menu-panel">
+          <div>
+            <div class="menu-inner">
+              <button class="big" data-open="about">About <Icon name="user" size={24} /></button>
+              <button class="big" data-open="contact">Contact <Icon name="mail" size={24} /></button>
+              <a class="big" href="/blog">Writing <Icon name="pen" size={24} /></a>
+              <a class="big" href={`mailto:${site.email}`}>Email <Icon name="arrow" size={24} /></a>
+              <div class="menu-foot">
+                <div class="row">
+                  {site.socials.map((s) => (<a class="pill-btn" href={s.url} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.icon} size={16} /></a>))}
+                </div>
+                <button class="pill-btn theme-toggle" aria-label="Toggle light and dark mode">
+                  <span class="moon"><Icon name="moon" size={16} /></span><span class="sun"><Icon name="sun" size={16} /></span>
+                  <span>Theme</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bar">
+          {nav.map((n) => (
+            <a class="navlink" href={n.href} aria-current={n.current} aria-label={n.label}><Icon name={n.icon} size={22} /></a>
+          ))}
+          <button class="navlink menu-btn" aria-label="Menu" aria-expanded="false">
+            <span class="open"><Icon name="menu" size={22} /></span><span class="close"><Icon name="close" size={22} /></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <AboutDialog />
+    <ContactDialog />
+    <Lightbox />
+
+    <script>
+      // ---------- theme
+      const root = document.documentElement;
+      const setTheme = (t: string) => {
+        root.dataset.theme = t;
+        try { localStorage.setItem('theme', t); } catch {}
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t === 'dark' ? '#101416' : '#ffffff');
+      };
+      document.querySelectorAll('.theme-toggle').forEach((b) =>
+        b.addEventListener('click', () => {
+          const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          const d = document as any;
+          if (d.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.startViewTransition(() => setTheme(next));
+          else setTheme(next);
+        })
+      );
+
+      // ---------- mobile menu (the page container lifts and shrinks to reveal it)
+      const menuBtn = document.querySelector<HTMLButtonElement>('.menu-btn');
+      const setMenu = (open: boolean) => {
+        document.body.classList.toggle('menu-open', open);
+        menuBtn?.setAttribute('aria-expanded', String(open));
+      };
+      menuBtn?.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+      document.querySelector('.stage')?.addEventListener('click', () => setMenu(false));
+
+      // ---------- sheets (About / Contact)
+      const openSheet = (id: string) => {
+        const d = document.getElementById(id) as HTMLDialogElement | null;
+        if (!d) return;
+        document.querySelectorAll<HTMLDialogElement>('dialog[open]').forEach((o) => o !== d && o.close());
+        setMenu(false);
+        if (!d.open) d.showModal();
+        d.querySelector('.sheet-body')?.scrollTo(0, 0);
+      };
+      document.addEventListener('click', (e) => {
+        const t = (e.target as HTMLElement).closest<HTMLElement>('[data-open]');
+        if (t) { e.preventDefault(); openSheet(t.dataset.open!); return; }
+        const c = (e.target as HTMLElement).closest('[data-close]');
+        if (c) (c.closest('dialog') as HTMLDialogElement)?.close();
+      });
+      document.querySelectorAll<HTMLDialogElement>('dialog.sheet').forEach((d) => {
+        d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
+        d.addEventListener('close', () => {
+          if (location.pathname === '/about' || location.pathname === '/contact') history.replaceState(null, '', '/');
+        });
+      });
+      const auto = document.body.dataset.openSheet || (location.hash === '#about' ? 'about' : location.hash === '#contact' ? 'contact' : '');
+      if (auto) requestAnimationFrame(() => openSheet(auto));
+
+      // ---------- reveal on scroll
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }),
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

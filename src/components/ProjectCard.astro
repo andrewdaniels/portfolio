@@ -1,0 +1,52 @@
+---
+import IsoStack from './IsoStack.astro';
+import UncomnMock from './UncomnMock.astro';
+import Icon from './Icon.astro';
+interface Props { project: any; size?: 'lg' | 'md' }
+const { project, size = 'md' } = Astro.props;
+const d = project.data;
+const imgs = [d.cover, ...d.thumbs, ...d.shots].filter(Boolean);
+---
+<a href={`/projects/${project.id}`} class:list={['pcard iso-host reveal', size]} data-cats={d.category.toLowerCase()}>
+  <div class="pcard-media">
+    {d.mockup === 'uncomn' ? <div class="pm-phone"><UncomnMock /></div> : <IsoStack images={imgs} layers={3} />}
+  </div>
+  <div class="pcard-body">
+    <div class="pcard-top">
+      <span class="pcard-name">{d.title}</span>
+      <span class="faint mono">{d.years}</span>
+    </div>
+    <p class="pcard-ov">{d.overview || d.summary}</p>
+    <div class="pcard-foot">
+      <span class="chip">{d.category.split(',')[0]}</span>
+      <span class="pcard-go"><Icon name="arrow" size={16} /></span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .pcard {
+    display: flex; flex-direction: column;
+    border-radius: var(--radius-lg); overflow: hidden;
+    background: var(--surface);
+    transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+  }
+  .pcard:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .pcard-media {
+    position: relative; aspect-ratio: 4 / 3; overflow: hidden;
+    background: radial-gradient(90% 80% at 50% 30%, var(--surface-2), var(--surface));
+  }
+  .lg .pcard-media { aspect-ratio: 16 / 10; }
+  .pm-phone { position: absolute; inset: 0; display: grid; place-items: end center; }
+  .pm-phone :global(.uphone) { width: 190px; translate: 0 22%; }
+  .pcard:hover .pm-phone :global(.uphone) { translate: 0 18%; }
+  .pcard-body { padding: 18px 20px 20px; display: grid; gap: 8px; }
+  .pcard-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .pcard-name { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -.025em; }
+  .lg .pcard-name { font-size: 30px; }
+  .mono { font-family: var(--font-mono); font-size: 13px; }
+  .pcard-ov { color: var(--soft); font-size: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .pcard-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .pcard-go { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); transition: background-color .3s, color .3s, transform .4s var(--ease); }
+  .pcard:hover .pcard-go { background: var(--accent); color: #fff; transform: rotate(45deg); }
+</style>

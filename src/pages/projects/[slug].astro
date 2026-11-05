@@ -1,0 +1,117 @@
+---
+import { render } from 'astro:content';
+import Shell from '../../layouts/Shell.astro';
+import IsoStack from '../../components/IsoStack.astro';
+import UncomnMock from '../../components/UncomnMock.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import { getProjects } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((p, i) => ({ params: { slug: p.id }, props: { project: p, next: projects[(i + 1) % projects.length] } }));
+}
+const { project, next } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+const imgs = [d.cover, ...d.thumbs, ...d.shots].filter(Boolean);
+const gallery = [...d.thumbs, ...d.shots].filter(Boolean);
+---
+<Shell title={d.title} description={d.summary.slice(0, 160)} image={d.cover || undefined}>
+  <article>
+    <header class="wrap ph">
+      <a class="back link-arrow" href="/work"><Icon name="left" size={14} /> All work</a>
+      <div class="ph-grid">
+        <div>
+          <p class="eyebrow">{d.client} · {d.years}</p>
+          <h1 class="display h-xl">{d.title}</h1>
+          <p class="ph-ov">{d.overview}</p>
+          {d.link && <a class="btn" href={d.link} target="_blank" rel="noopener" style="margin-top:20px">Visit {d.link.replace(/^https?:\/\//, '')} <Icon name="arrow" size={16} /></a>}
+        </div>
+        <dl class="facts">
+          <div><dt>Client</dt><dd>{d.client}</dd></div>
+          <div><dt>Year</dt><dd>{d.years}</dd></div>
+          <div><dt>Scope</dt><dd>{d.category}</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="hero-media iso-host">
+      {d.mockup === 'uncomn' ? <div class="hm-phone"><UncomnMock /></div> : <IsoStack images={imgs} layers={4} />}
+    </div>
+
+    <section class="wrap body">
+      <div class="col-l"><p class="eyebrow">Overview</p></div>
+      <div class="col-r">
+        <p class="big">{d.summary}</p>
+      </div>
+    </section>
+
+    {d.outcome && (
+      <section class="wrap body">
+        <div class="col-l"><p class="eyebrow">Outcome</p></div>
+        <div class="col-r">
+          <p class="outcome">{d.outcome}</p>
+          <div class="prose muted"><Content /></div>
+        </div>
+      </section>
+    )}
+
+    {gallery.length > 0 && (
+      <section class="wrap gallery">
+        {gallery.map((src, i) => (
+          <button class:list={['g-item reveal', { wide: i % 3 === 0 }]} data-lightbox={src} aria-label="Enlarge image">
+            <img src={src} alt={`${d.title} screen ${i + 1}`} loading="lazy" decoding="async" />
+          </button>
+        ))}
+      </section>
+    )}
+
+    <a class="next wrap iso-host" href={`/projects/${next.id}`}>
+      <span class="eyebrow">Next project</span>
+      <span class="display h-lg">{next.data.title} <Icon name="arrow" size={36} /></span>
+    </a>
+  </article>
+  <Footer />
+</Shell>
+
+<style>
+  .ph { padding-top: clamp(28px, 5vw, 64px); }
+  .back { font-size: 14px; color: var(--soft); margin-bottom: clamp(24px, 4vw, 48px); }
+  .ph-grid { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: end; }
+  .ph h1 { margin-top: 12px; }
+  .ph-ov { font-size: clamp(18px, 1.6vw, 22px); color: var(--soft); margin-top: 16px; max-width: 46ch; }
+  .facts { display: grid; gap: 14px; }
+  .facts div { border-top: 1px solid var(--line); padding-top: 10px; }
+  dt { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); }
+  dd { margin: 2px 0 0; font-weight: 500; }
+  .hero-media {
+    position: relative; margin: 0 8px; height: clamp(360px, 62vh, 720px);
+    border-radius: var(--radius-lg); overflow: hidden;
+    background: radial-gradient(80% 80% at 50% 35%, color-mix(in oklab, var(--accent) 14%, var(--surface-2)), var(--surface));
+  }
+  .hero-media :global(.iso-plane) { width: 52%; }
+  .hm-phone { position: absolute; inset: 0; display: grid; place-items: end center; }
+  .hm-phone :global(.uphone) { width: 300px; translate: 0 14%; }
+  .body { display: grid; grid-template-columns: 220px 1fr; gap: 32px; padding-top: clamp(40px, 6vw, 80px); padding-bottom: 0; }
+  .big { font-size: clamp(20px, 2vw, 28px); line-height: 1.45; letter-spacing: -.015em; max-width: 38ch; }
+  .outcome { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 2.6vw, 38px); letter-spacing: -.03em; line-height: 1.15; max-width: 26ch; margin-bottom: 20px; }
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: clamp(40px, 6vw, 80px); }
+  .g-item { border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); cursor: zoom-in; }
+  .g-item.wide { grid-column: span 2; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+  .g-item:hover img { transform: scale(1.02); }
+  .next { display: grid; gap: 8px; padding-top: clamp(56px, 8vw, 120px); padding-bottom: clamp(56px, 8vw, 120px); }
+  .next .display { display: inline-flex; align-items: center; gap: 12px; transition: color .3s; }
+  .next:hover .display { color: var(--accent); }
+  .next :global(.icon) { transition: transform .4s var(--ease); }
+  .next:hover :global(.icon) { transform: translate(6px, -6px); }
+  @media (max-width: 760px) {
+    .ph-grid, .body { grid-template-columns: 1fr; gap: 16px; }
+    .gallery { grid-template-columns: 1fr; }
+    .g-item.wide { grid-column: auto; }
+    .hero-media { height: 340px; }
+    .hero-media :global(.iso-plane) { width: 80%; }
+    .hm-phone :global(.uphone) { width: 220px; }
+  }
+</style>

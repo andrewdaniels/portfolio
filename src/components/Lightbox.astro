@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+---
+<dialog class="lightbox" id="lightbox">
+  <button class="icon-btn lb-close" data-close aria-label="Close"><Icon name="close" size={18} /></button>
+  <img alt="" />
+</dialog>
+<style>
+  .lightbox { margin: auto; border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 94dvh; overflow: visible; }
+  .lightbox::backdrop { background: rgba(8, 9, 10, .86); backdrop-filter: blur(6px); }
+  .lightbox img { max-width: 96vw; max-height: 94dvh; border-radius: 12px; object-fit: contain; }
+  .lb-close { position: fixed; top: 16px; right: 16px; background: rgba(255, 255, 255, .12); color: #fff; }
+</style>
+<script>
+  const lb = document.getElementById('lightbox') as HTMLDialogElement;
+  const img = lb.querySelector('img')!;
+  document.addEventListener('click', (e) => {
+    const t = (e.target as HTMLElement).closest<HTMLElement>('[data-lightbox]');
+    if (!t) return;
+    img.src = t.dataset.lightbox!;
+    lb.showModal();
+  });
+  lb.addEventListener('click', (e) => { if (e.target === lb || e.target === img) lb.close(); });
+</script>

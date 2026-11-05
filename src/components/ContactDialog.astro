@@ -1,0 +1,86 @@
+---
+import site from '../data/site.json';
+import Icon from './Icon.astro';
+const types = site.contact.workTypes;
+---
+<dialog class="sheet" id="contact" aria-labelledby="contact-title">
+  <div class="sheet-inner">
+    <div class="sheet-top">
+      <span class="eyebrow">Contact</span>
+      <button class="icon-btn" data-close aria-label="Close"><Icon name="close" size={18} /></button>
+    </div>
+    <div tabindex="-1" autofocus class="sheet-body">
+      <h2 id="contact-title" class="h-md">Anything in mind? Let's talk.</h2>
+      <p class="muted" style="margin:10px 0 28px">Tell me a little about what you're building. I usually reply within a day, or you can email <a href={`mailto:${site.email}`} style="color:var(--accent)">{site.email}</a>.</p>
+
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="company-url" class="contact-form" data-budgets={JSON.stringify(Object.fromEntries(types.map((t) => [t.value, t.budgets])))}>
+        <input type="hidden" name="form-name" value="contact" />
+        <p hidden><label>Leave empty <input name="company-url" /></label></p>
+        <div class="field"><label for="cf-name">Name</label><input class="input" id="cf-name" name="name" required autocomplete="name" /></div>
+        <div class="field"><label for="cf-email">Email</label><input class="input" id="cf-email" name="email" type="email" required autocomplete="email" /></div>
+        <div class="field">
+          <span class="label">What type of work are you inquiring about?</span>
+          <div class="choices">
+            {types.map((t, i) => (
+              <label class="choice"><input type="radio" name="type-of-work" value={t.value} required={i === 0} /><span>{t.value}</span></label>
+            ))}
+          </div>
+        </div>
+        <input type="hidden" name="budget" value="" />
+        <div class="field budget" hidden>
+          <span class="label">Your budget</span>
+          <div class="choices budget-choices"></div>
+        </div>
+        <div class="field"><label for="cf-msg">Project details</label><textarea class="input" id="cf-msg" name="message" placeholder="What are you building, and where are you stuck?"></textarea></div>
+        <button class="btn accent" type="submit">Send inquiry <Icon name="arrow" size={16} /></button>
+        <p class="form-status" role="status"></p>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .form-status { margin-top: 14px; font-size: 15px; }
+  .form-status.ok { color: #2fbf71; }
+  .form-status.err { color: #e5484d; }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form.contact-form');
+  if (form) {
+    const budgets: Record<string, string[]> = JSON.parse(form.dataset.budgets || '{}');
+    const wrap = form.querySelector<HTMLElement>('.budget')!;
+    const list = form.querySelector<HTMLElement>('.budget-choices')!;
+    const hidden = form.querySelector<HTMLInputElement>('input[name="budget"]')!;
+    list.addEventListener('change', (e) => { hidden.value = (e.target as HTMLInputElement).value; });
+    form.querySelectorAll<HTMLInputElement>('input[name="type-of-work"]').forEach((r) =>
+      r.addEventListener('change', () => {
+        const opts = budgets[r.value] || [];
+        list.innerHTML = opts
+          .map((b) => `<label class="choice"><input type="radio" name="budget-pick" value="${b}"><span>${b}</span></label>`)
+          .join('');
+        wrap.hidden = !opts.length;
+        hidden.value = '';
+      })
+    );
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = form.querySelector<HTMLElement>('.form-status')!;
+      status.className = 'form-status';
+      status.textContent = 'Sending…';
+      try {
+        const fd = new FormData(form); fd.delete('budget-pick');
+        const body = new URLSearchParams(fd as any).toString();
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        wrap.hidden = true;
+        status.classList.add('ok');
+        status.textContent = 'Your inquiry was sent. Talk soon!';
+      } catch {
+        status.classList.add('err');
+        status.textContent = 'Something went wrong. Please email me directly instead.';
+      }
+    });
+  }
+</script>

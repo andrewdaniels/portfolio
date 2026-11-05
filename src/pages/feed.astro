@@ -1,0 +1,56 @@
+---
+import Shell from '../layouts/Shell.astro';
+import FeedItem from '../components/FeedItem.astro';
+import site from '../data/site.json';
+import { getFeed } from '../lib/content';
+const feed = await getFeed();
+const tabs = [
+  { key: 'all', label: 'Everything' },
+  { key: 'shot', label: 'Shipped' },
+  { key: 'project', label: 'Case studies' },
+  { key: 'post', label: 'Writing' },
+];
+---
+<Shell title="Feed" description="A running feed of what I'm designing, shipping and writing.">
+  <div class="feed-wrap">
+    <header class="fhead">
+      <img src={site.avatar} alt="" width="72" height="72" />
+      <h1 class="h-md">{site.name}</h1>
+      <p class="faint">@{site.handle} · {site.role} · {site.location}</p>
+      <p class="muted bio">{site.description}</p>
+    </header>
+    <div class="tabs" role="tablist">
+      {tabs.map((t, i) => <button role="tab" class="tab" data-k={t.key} aria-selected={i === 0 ? 'true' : 'false'}>{t.label}</button>)}
+    </div>
+    <div class="flist">
+      {feed.map((f) => <div class="fwrap" data-kind={f.kind}><FeedItem item={f} /></div>)}
+    </div>
+  </div>
+</Shell>
+
+<style>
+  .feed-wrap { max-width: 680px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) 20px 80px; }
+  .fhead { display: grid; gap: 4px; padding-bottom: 20px; }
+  .fhead img { border-radius: 50%; margin-bottom: 10px; }
+  .bio { margin-top: 8px; }
+  .tabs {
+    position: sticky; top: 0; z-index: 5; display: flex; gap: 4px;
+    background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line); padding: 10px 0; margin: 0 -4px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .tab { height: 36px; padding: 0 14px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--soft); white-space: nowrap; }
+  .tab[aria-selected='true'] { background: var(--surface); color: var(--text); }
+  .fwrap.hide { display: none; }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tab');
+  const items = document.querySelectorAll<HTMLElement>('.fwrap');
+  tabs.forEach((t) =>
+    t.addEventListener('click', () => {
+      tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+      items.forEach((i) => i.classList.toggle('hide', t.dataset.k !== 'all' && i.dataset.kind !== t.dataset.k));
+    })
+  );
+</script>

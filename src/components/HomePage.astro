@@ -1,0 +1,185 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Hero from './Hero.astro';
+import ProjectCard from './ProjectCard.astro';
+import FeedItem from './FeedItem.astro';
+import Footer from './Footer.astro';
+import Icon from './Icon.astro';
+import IsoStack from './IsoStack.astro';
+import UncomnMock from './UncomnMock.astro';
+import site from '../data/site.json';
+import work from '../data/work.json';
+import testimonials from '../data/testimonials.json';
+import { getProjects, getFeed } from '../lib/content';
+
+interface Props { openSheet?: 'about' | 'contact'; title?: string }
+const { openSheet, title } = Astro.props;
+const projects = await getProjects();
+const now = projects.filter((p) => p.data.status === 'now');
+const past = projects.filter((p) => p.data.status !== 'now');
+const selected = past.slice(0, 4);
+const kh = projects.find((p) => p.id === 'knowhim')!;
+const khImgs = [kh.data.cover, ...kh.data.thumbs, ...kh.data.shots].filter(Boolean);
+const feed = (await getFeed()).filter((f) => f.kind !== 'project').slice(0, 3);
+---
+<Shell openSheet={openSheet} title={title}>
+  <Hero knowhim={khImgs} />
+
+  <!-- Building now -->
+  <section class="section">
+    <div class="section-head reveal">
+      <div><p class="eyebrow">01 · Building now</p><h2 class="h-lg">Two products I'm building and shipping myself.</h2></div>
+    </div>
+    <div class="now-grid">
+      {now.map((p) => {
+        const imgs = [p.data.cover, ...p.data.thumbs, ...p.data.shots].filter(Boolean);
+        return (
+          <article class="now-card iso-host reveal">
+            <a class="stretch-link" href={`/projects/${p.id}`} aria-label={`${p.data.title} case study`}></a>
+            <div class="now-media">{p.data.mockup === 'uncomn' ? <div class="now-phone"><UncomnMock /></div> : <IsoStack images={imgs} layers={4} />}</div>
+            <div class="now-body">
+              <div class="now-top"><span class="chip live">Live</span><span class="faint mono">{p.data.years}</span></div>
+              <h3 class="h-md">{p.data.title}</h3>
+              <p class="now-tag">{p.data.tagline}</p>
+              <p class="muted">{p.data.summary}</p>
+              <div class="now-actions">
+                <a class="btn sm" href={`/projects/${p.id}`}>Case study <Icon name="arrow" size={14} /></a>
+                {p.data.link && <a class="btn sm ghost" href={p.data.link} target="_blank" rel="noopener">{p.data.link.replace(/^https?:\/\//, '')}</a>}
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- Background -->
+  <section class="section bg-section">
+    <div class="bg-grid">
+      <div class="reveal">
+        <p class="eyebrow">02 · Background</p>
+        <h2 class="h-lg" style="margin-top:12px">{site.past.headline}</h2>
+        <p class="lede" style="margin-top:18px">{site.past.body}</p>
+        <div class="stats">
+          {site.stats.map((s) => <div><b>{s.value}</b><span>{s.label}</span></div>)}
+        </div>
+      </div>
+      <ol class="timeline reveal">
+        {work.map((w) => (
+          <li><span class="mono faint">{w.years}</span><div><strong>{w.company}</strong><span class="muted">{w.role}</span></div></li>
+        ))}
+        <li><button class="link-arrow" data-open="about">Full story <Icon name="arrow" size={14} /></button></li>
+      </ol>
+    </div>
+    <div class="clients reveal" aria-label="Clients">
+      <p class="eyebrow">I've worked with</p>
+      <div class="client-row">{site.clients.map((c) => <span>{c}</span>)}</div>
+    </div>
+  </section>
+
+  <!-- Selected work -->
+  <section class="section">
+    <div class="section-head reveal">
+      <div><p class="eyebrow">03 · Selected work</p><h2 class="h-lg">Past work.</h2></div>
+      <a class="btn ghost" href="/work">All {past.length} projects <Icon name="arrow" size={16} /></a>
+    </div>
+    <div class="work-grid">
+      {selected.map((p, i) => <ProjectCard project={p} size={i < 2 ? 'lg' : 'md'} />)}
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="section-head reveal">
+      <div><p class="eyebrow">04 · Kind words</p><h2 class="h-lg">My clients would agree.</h2></div>
+      <div class="t-nav"><button class="icon-btn" data-t="-1" aria-label="Previous"><Icon name="left" size={18} /></button><button class="icon-btn" data-t="1" aria-label="Next"><Icon name="right" size={18} /></button></div>
+    </div>
+    <div class="t-track">
+      {testimonials.map((t) => (
+        <figure class="tcard">
+          <blockquote>
+            <p class="t-head">{t.headline.replace(/^…/, '')}</p>
+            <p class="t-body">{t.quote}</p>
+          </blockquote>
+          <figcaption>
+            {t.photo ? <img src={t.photo} alt="" width="40" height="40" loading="lazy" /> : <span class="t-ph">{t.name[0]}</span>}
+            <div><strong>{t.name}</strong><span class="faint">{t.role}, {t.company} · {t.year}</span></div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- Feed preview -->
+  <section class="section">
+    <div class="section-head reveal">
+      <div><p class="eyebrow">05 · Feed</p><h2 class="h-lg">Recently shipped.</h2></div>
+      <a class="btn ghost" href="/feed">Open the feed <Icon name="arrow" size={16} /></a>
+    </div>
+    <div class="feed-prev">{feed.map((f) => <FeedItem item={f} />)}</div>
+  </section>
+
+  <Footer />
+</Shell>
+
+<style>
+  .mono { font-family: var(--font-mono); font-size: 13px; }
+  .now-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .now-card { position: relative; border-radius: var(--radius-lg); background: var(--surface); overflow: hidden; display: flex; flex-direction: column; }
+  .stretch-link { position: absolute; inset: 0; z-index: 1; }
+  .now-actions { position: relative; z-index: 2; display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .now-media { position: relative; aspect-ratio: 5 / 4; overflow: hidden; background: radial-gradient(80% 70% at 50% 40%, color-mix(in oklab, var(--accent) 16%, var(--surface-2)), var(--surface)); }
+  .now-phone { position: absolute; inset: 0; display: grid; place-items: end center; }
+  .now-phone :global(.uphone) { width: 260px; translate: 0 18%; }
+  .now-body { padding: clamp(20px, 2.4vw, 32px); display: grid; gap: 10px; }
+  .now-top { display: flex; justify-content: space-between; align-items: center; }
+  .now-body .muted { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .now-tag { font-size: 18px; font-weight: 500; letter-spacing: -.01em; }
+
+  .bg-section { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .bg-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 36px; }
+  .stats div { display: grid; padding-top: 16px; border-top: 1px solid var(--line); }
+  .stats b { font-family: var(--font-display); font-size: clamp(30px, 3vw, 44px); letter-spacing: -.04em; line-height: 1.05; }
+  .stats span { font-size: 14px; color: var(--soft); }
+  .timeline { list-style: none; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .timeline li:last-child { border: 0; display: block; }
+  .timeline li div { display: grid; }
+  .timeline span.muted { font-size: 15px; }
+  .clients { margin-top: clamp(48px, 6vw, 80px); }
+  .client-row { display: flex; flex-wrap: wrap; gap: 10px 36px; margin-top: 18px; }
+  .client-row span { font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2vw, 28px); letter-spacing: -.03em; color: var(--faint); transition: color .3s; }
+  .client-row span:hover { color: var(--text); }
+
+  .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+  .t-nav { display: flex; gap: 6px; }
+  .t-track { display: grid; grid-auto-flow: column; grid-auto-columns: min(440px, 86%); gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+  .t-track::-webkit-scrollbar { display: none; }
+  .tcard { scroll-snap-align: start; border-radius: var(--radius-lg); background: var(--surface); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+  .t-head { font-size: 21px; font-weight: 700; letter-spacing: -.02em; line-height: 1.3; }
+  .t-body { color: var(--soft); font-size: 15px; margin-top: 12px; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+  figcaption { display: flex; align-items: center; gap: 12px; }
+  figcaption img, .t-ph { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .t-ph { display: grid; place-items: center; background: var(--accent); color: #fff; font-weight: 700; }
+  figcaption div { display: grid; line-height: 1.35; }
+  figcaption span { font-size: 13px; }
+  .feed-prev { max-width: 720px; }
+
+  @media (max-width: 960px) {
+    .bg-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .now-grid, .work-grid { grid-template-columns: 1fr; }
+    .section-head { flex-direction: column; align-items: start; }
+  }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('.t-track');
+  document.querySelectorAll<HTMLElement>('[data-t]').forEach((b) =>
+    b.addEventListener('click', () => track?.scrollBy({ left: Number(b.dataset.t) * (track.clientWidth * 0.8), behavior: 'smooth' }))
+  );
+</script>
