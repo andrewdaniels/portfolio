@@ -78,8 +78,11 @@ const { class: cls = '', width } = Astro.props;
   let iw = 0, ih = 0;
   const img = new Image();
   img.onload = () => { iw = img.naturalWidth; ih = img.naturalHeight; ports.forEach(align); };
-  const m = /url\(["']?([^"')]+)/.exec(ports[0] ? getComputedStyle(ports[0]).getPropertyValue('--hero-photo') : '');
-  if (m) img.src = m[1];
+  // resolve the photo against the page (not the stylesheet) so it works under any base path
+  ports.forEach((p) => {
+    const raw = /url\(["']?([^"')]+)/.exec(p.getAttribute('style') || '');
+    if (raw) { const abs = new URL(raw[1], document.baseURI).href; p.style.setProperty('--hero-photo', `url("${abs}")`); img.src = abs; }
+  });
   function align(port: HTMLElement) {
     const screen = port.querySelector<HTMLElement>('.hs');
     if (!screen || !iw) return;
