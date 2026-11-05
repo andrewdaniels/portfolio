@@ -107,18 +107,19 @@ import UncomnHero from './UncomnHero.astro';
       'intro uncomn  uncomn'
       'intro knowhim contact'
       'past  knowhim contact';
-    transition: grid-template-columns .7s var(--ease), grid-template-rows .7s var(--ease);
+    transition: grid-template-columns .6s var(--ease), grid-template-rows .6s var(--ease);
   }
   .t-intro { grid-area: intro; }
   .t-uncomn { grid-area: uncomn; }
   .t-knowhim { grid-area: knowhim; }
   .t-past { grid-area: past; }
   .t-contact { grid-area: contact; }
-  .hero[data-hot='0'] { --cA: 1.4fr; --r1: 1.35fr; }
-  .hero[data-hot='1'] { --r1: 1.55fr; --cB: 1.15fr; }
-  .hero[data-hot='2'] { --cB: 1.35fr; --r2: .8fr; --r3: .8fr; --r1: 1fr; }
-  .hero[data-hot='3'] { --cA: 1.3fr; --r3: .85fr; }
-  .hero[data-hot='4'] { --cC: .95fr; --r2: .72fr; --r3: .72fr; }
+  /* hover: a gentle nudge, not a reshuffle */
+  .hero[data-hot='0'] { --cA: 1.16fr; }
+  .hero[data-hot='1'] { --r1: 1.3fr; }
+  .hero[data-hot='2'] { --cB: 1.1fr; }
+  .hero[data-hot='3'] { --r3: .7fr; }
+  .hero[data-hot='4'] { --cC: .68fr; }
 
   .tile {
     --mx: 50%; --my: 50%;
@@ -136,7 +137,7 @@ import UncomnHero from './UncomnHero.astro';
     opacity: 0; transition: opacity .4s;
   }
   .tile:hover::before { opacity: 1; }
-  .hero[data-hot]:not([data-hot='']) .tile:not(:hover) { opacity: .78; filter: saturate(.85); }
+  .hero[data-hot]:not([data-hot='']) .tile:not(:hover) { opacity: .88; }
   .stretch { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
   .tile-copy { position: relative; z-index: 2; max-width: 34rem; pointer-events: none; }
   .tile-copy a, .tile-copy button { pointer-events: auto; }
