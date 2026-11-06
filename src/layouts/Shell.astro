@@ -38,7 +38,7 @@ const nav = [
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${site.name}: Writing`} href="/rss.xml" />
-    <meta name="theme-color" content="#101416" />
+    <meta name="theme-color" content="#262f35" />
     <link rel="preload" href="/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -120,7 +120,7 @@ const nav = [
       const setTheme = (t: string) => {
         root.dataset.theme = t;
         try { localStorage.setItem('theme', t); } catch {}
-        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t === 'dark' ? '#101416' : '#ffffff');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', t === 'dark' ? '#262f35' : '#c7d2d8');
       };
       document.querySelectorAll('.theme-toggle').forEach((b) =>
         b.addEventListener('click', () => {
