@@ -21,6 +21,11 @@
   to = "/projects/tribe-social"
   status = 301
 
+[[redirects]]
+  from = "/blog/new-site"
+  to = "/blog/moving-to-astro"
+  status = 301
+
 [[headers]]
   for = "/media/*"
   [headers.values]
