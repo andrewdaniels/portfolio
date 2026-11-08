@@ -1,11 +1,9 @@
 ---
 import site from '../data/site.json';
 import Icon from './Icon.astro';
-import KnowHimHero from './KnowHimHero.astro';
-import UncomnHero from './UncomnHero.astro';
 ---
 <div class="hero-wrap" data-active="0">
-<div class="story-bars" aria-hidden="true">{[0, 1, 2, 3, 4].map(() => <i><b></b></i>)}</div>
+<div class="story-bars" aria-hidden="true">{[0, 1, 2].map(() => <i><b></b></i>)}</div>
 <section class="hero" data-hot="" aria-label="Introduction">
 
   <!-- 1. Intro -->
@@ -26,38 +24,8 @@ import UncomnHero from './UncomnHero.astro';
     </div>
   </article>
 
-  <!-- 2. Uncomn -->
-  <article class="tile t-uncomn on-photo iso-host" data-i="1">
-    <a class="stretch" href="/projects/uncomn" aria-label="Uncomn case study"></a>
-    <div class="tile-copy">
-      <p class="eyebrow"><span class="now-dot"></span>Building now</p>
-      <h2 class="tile-h">Uncomn</h2>
-      <p class="tile-sub">Your next meeting, right on your home screen. Discipleship for church groups.</p>
-      <div class="more actions">
-        <a class="btn sm" href="/projects/uncomn">Case study <Icon name="arrow" size={14} /></a>
-        <a class="btn sm ghost" href="https://uncomn.co" target="_blank" rel="noopener">uncomn.co</a>
-      </div>
-    </div>
-    <div class="tile-media"><UncomnHero /></div>
-  </article>
-
-  <!-- 3. KnowHim -->
-  <article class="tile t-knowhim on-photo iso-host" data-i="2">
-    <a class="stretch" href="/projects/knowhim" aria-label="KnowHim case study"></a>
-    <div class="tile-copy">
-      <p class="eyebrow"><span class="now-dot"></span>Building now</p>
-      <h2 class="tile-h">KnowHim</h2>
-      <p class="tile-sub">Grow, pray and know Him. Together. A prayer and small-group app.</p>
-      <div class="more actions">
-        <a class="btn sm" href="/projects/knowhim">Case study <Icon name="arrow" size={14} /></a>
-        <a class="btn sm ghost" href="https://knowhim.app" target="_blank" rel="noopener">knowhim.app</a>
-      </div>
-    </div>
-    <div class="tile-media"><KnowHimHero variant="tile" /></div>
-  </article>
-
   <!-- 4. Past -->
-  <article class="tile t-past" data-i="3">
+  <article class="tile t-past" data-i="1">
     <a class="stretch" href="/work" aria-label="Past work"></a>
     <div class="tile-copy">
       <p class="eyebrow">Before this</p>
@@ -74,7 +42,7 @@ import UncomnHero from './UncomnHero.astro';
   </article>
 
   <!-- 5. Contact -->
-  <article class="tile t-contact" data-i="4">
+  <article class="tile t-contact" data-i="2">
     <div class="tile-copy">
       <span class="chip live">Open to fractional work</span>
     </div>
@@ -91,35 +59,30 @@ import UncomnHero from './UncomnHero.astro';
 
 <style>
   .hero-wrap { position: relative; }
-  /* bento: intro tall on the left, Uncomn wide on top, KnowHim + contact below, stats strip under the intro */
+  /* bento: the intro owns most of the space; stats strip below it; contact on the right */
   .hero {
-    --cA: 1.08fr; --cB: 1fr; --cC: .6fr;
-    --r1: 1.2fr; --r2: .58fr; --r3: .62fr;
+    --cA: 1fr; --cC: .42fr;
+    --r1: 1fr; --r2: .36fr;
     position: relative;
     height: calc(100dvh - 16px);
-    min-height: 600px;
+    min-height: 560px;
     padding: 8px;
     display: grid;
     gap: 8px;
-    grid-template-columns: var(--cA) var(--cB) var(--cC);
-    grid-template-rows: var(--r1) var(--r2) var(--r3);
+    grid-template-columns: var(--cA) var(--cC);
+    grid-template-rows: var(--r1) var(--r2);
     grid-template-areas:
-      'intro uncomn  uncomn'
-      'intro knowhim contact'
-      'past  knowhim contact';
+      'intro contact'
+      'past  contact';
     transition: grid-template-columns .6s var(--ease), grid-template-rows .6s var(--ease);
   }
   .t-intro { grid-area: intro; }
-  .t-uncomn { grid-area: uncomn; }
-  .t-knowhim { grid-area: knowhim; }
   .t-past { grid-area: past; }
   .t-contact { grid-area: contact; }
   /* hover: a gentle nudge, not a reshuffle */
-  .hero[data-hot='0'] { --cA: 1.16fr; }
-  .hero[data-hot='1'] { --r1: 1.3fr; }
-  .hero[data-hot='2'] { --cB: 1.1fr; }
-  .hero[data-hot='3'] { --r3: .7fr; }
-  .hero[data-hot='4'] { --cC: .68fr; }
+  .hero[data-hot='0'] { --r1: 1.08fr; }
+  .hero[data-hot='1'] { --r2: .44fr; }
+  .hero[data-hot='2'] { --cC: .48fr; }
 
   .tile {
     --mx: 50%; --my: 50%;
@@ -161,13 +124,14 @@ import UncomnHero from './UncomnHero.astro';
   .t-intro .btn.ghost { background: transparent; color: var(--bg); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--bg) 30%, transparent); }
   .intro-top { display: flex; align-items: center; gap: 12px; }
   .intro-photo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px color-mix(in oklab, var(--bg) 20%, transparent); }
-  .t-intro h1 { font-size: clamp(30px, 3.6vw, 56px); max-width: 15ch; }
-  .t-intro .more { opacity: 1; translate: 0 0; max-height: 260px; margin-top: 20px; max-width: 36ch; }
+  .t-intro h1 { font-size: clamp(36px, 5.2vw, 88px); max-width: 15ch; }
+  .t-intro .more { opacity: 1; translate: 0 0; max-height: 260px; margin-top: 24px; max-width: 46ch; }
+  .t-intro .more .muted { font-size: clamp(16px, 1.3vw, 19px); }
   .intro-glyph {
     position: absolute; right: -2%; bottom: -6%; z-index: 0;
     display: grid; text-align: right;
     font-family: var(--font-display); font-weight: 900; letter-spacing: -.06em; line-height: .82;
-    font-size: clamp(44px, 5vw, 92px);
+    font-size: clamp(56px, 7vw, 132px);
     color: color-mix(in oklab, var(--bg) 9%, transparent);
     transition: color .6s, translate .9s var(--ease);
   }
@@ -177,19 +141,7 @@ import UncomnHero from './UncomnHero.astro';
   .t-intro:hover .intro-glyph span:nth-child(2) { translate: -12px 0; }
   .t-intro:hover .intro-glyph { translate: 0 -8px; }
 
-  .tile-h { font-size: clamp(30px, 3.4vw, 52px); letter-spacing: -.04em; }
-  .tile-sub { color: var(--soft); max-width: 24ch; }
 
-  .tile-media { position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; overflow: hidden; }
-  .on-photo { color: #fff; }
-  .on-photo .tile-copy { text-shadow: 0 1px 14px rgba(0,0,0,.35); }
-  .on-photo .eyebrow { color: rgba(255,255,255,.8); }
-  .on-photo .tile-sub { color: rgba(255,255,255,.88); }
-  .on-photo .tile-media::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-    background: linear-gradient(160deg, rgba(10,14,18,.55) 0%, rgba(10,14,18,.12) 42%, rgba(10,14,18,0) 60%); }
-  .on-photo .btn { background: #fff; color: #101416; }
-  .on-photo .btn.ghost { background: rgba(255,255,255,.14); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.4); backdrop-filter: blur(10px); }
-  .on-photo::before { display: none; }
 
   .t-past { justify-content: space-between; padding-bottom: 18px; }
   .t-past .tile-copy > * + * { margin-top: 10px; }
@@ -201,16 +153,14 @@ import UncomnHero from './UncomnHero.astro';
   .corner-go { position: absolute; top: 16px; right: 16px; z-index: 2; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); transition: transform .4s var(--ease), background-color .3s, color .3s; }
   .t-past:hover .corner-go { background: var(--accent); color: #fff; transform: rotate(45deg); }
 
-  /* contact: the accent tile */
-  .t-contact { background: var(--accent); color: #fff; }
-  .t-contact::before { background: radial-gradient(360px circle at var(--mx) var(--my), rgba(255,255,255,.22), transparent 60%); }
-  .t-contact .chip { background: rgba(255,255,255,.18); color: #fff; }
-  .t-contact .chip.live::before { background: #fff; box-shadow: none; }
-  .contact-bottom { display: grid; gap: 12px; justify-items: start; }
+  /* contact: neutral tile */
+  .t-contact { background: var(--surface-2); }
+  .t-contact::before { background: radial-gradient(420px circle at var(--mx) var(--my), color-mix(in oklab, var(--text) 7%, transparent), transparent 60%); }
+  .t-contact .chip { background: var(--bg); color: var(--soft); }
+  .contact-bottom { display: grid; gap: 14px; justify-items: start; }
   .contact-bottom > * + * { margin-top: 0; }
-  .contact-h { font-size: clamp(22px, 2vw, 32px); letter-spacing: -.035em; line-height: 1.05; max-width: 9ch; }
-  .t-contact .btn { background: #fff; color: #101416; }
-  .contact-note { font-size: 12px; color: rgba(255,255,255,.75); font-family: var(--font-mono); letter-spacing: .02em; }
+  .contact-h { font-size: clamp(26px, 2.6vw, 40px); letter-spacing: -.035em; line-height: 1.05; max-width: 9ch; }
+  .contact-note { font-size: 12px; color: var(--faint); font-family: var(--font-mono); letter-spacing: .02em; }
   .t-past:hover .past-stats b { color: var(--accent); }
   .marquee {
     position: relative; z-index: 0; overflow: hidden; margin: 0 calc(-1 * clamp(20px, 2.4vw, 36px));
@@ -224,8 +174,8 @@ import UncomnHero from './UncomnHero.astro';
   .story-bars, .story-hint { display: none; }
 
   @media (max-width: 1100px) and (min-width: 761px) {
-    .hero { grid-template-areas: 'intro uncomn uncomn' 'intro knowhim knowhim' 'past contact contact'; --cC: .8fr; }
-    .contact-note, .t-intro .more .muted { display: none; }
+    .hero { --cC: .55fr; }
+    .t-past .past-stats { gap: 18px; }
   }
 
   /* ---------- mobile: the quadrants become stories ---------- */
@@ -248,11 +198,7 @@ import UncomnHero from './UncomnHero.astro';
     .intro-top { display: flex; align-items: center; gap: 12px; }
   .intro-photo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px color-mix(in oklab, var(--bg) 20%, transparent); }
   .t-intro h1 { font-size: 40px; }
-    .tile-h { font-size: 44px; }
-    .t-uncomn :global(.un-port) { --un-right: 50%; --un-w: min(64cqw, 270px); --un-bottom: -22%; }
-    .t-uncomn :global(.un-fit) { translate: 36% 0; }
-    .t-knowhim :global(.kh-port) { --kh-left: 50%; --kh-top: 66%; --kh-scale: min(calc(100cqw / 700px), 0.62); }
-    .t-past, .t-contact { justify-content: flex-start; gap: 32px; }
+      .t-past, .t-contact { justify-content: flex-start; gap: 32px; }
     .contact-h { font-size: 44px; }
     .contact-bottom { margin-top: auto; }
     .corner-go { display: none; }
@@ -265,7 +211,6 @@ import UncomnHero from './UncomnHero.astro';
       color: var(--text); transition: color .3s;
     }
     .hero-wrap[data-active='0'] .story-bars, .hero-wrap[data-active='0'] .story-hint { color: var(--bg); }
-    .hero-wrap[data-active='1'] .story-bars, .hero-wrap[data-active='2'] .story-bars, .hero-wrap[data-active='4'] .story-bars { color: #fff; }
     .hero-wrap:not([data-active='0']) .story-hint { opacity: 0; }
     .story-bars i { flex: 1; height: 3px; border-radius: 3px; background: color-mix(in oklab, currentColor 22%, transparent); overflow: hidden; }
     .story-bars b { display: block; height: 100%; width: 0; background: currentColor; border-radius: 3px; }
