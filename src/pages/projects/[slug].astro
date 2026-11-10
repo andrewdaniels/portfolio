@@ -35,7 +35,9 @@ const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.
     </header>
 
     <div class="hero-media iso-host">
-      <Mockup project={project} layers={4} phone="min(52cqh, 40cqw, 360px)" />
+      {d.gallery === 'phones' && d.mockup === 'iso'
+        ? <div class="phone-row">{[d.thumbs[0], d.cover, d.thumbs[1]].filter(Boolean).map((src) => <img src={src} alt="" />)}</div>
+        : <Mockup project={project} layers={4} phone="min(52cqh, 40cqw, 360px)" />}
     </div>
 
     <section class="wrap body">
@@ -103,6 +105,11 @@ const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.
   }
   .hero-media :global(.un-port) { --un-right: 50%; --un-bottom: -12%; }
   .hero-media :global(.un-fit) { translate: 50% 0; }
+  .phone-row { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: clamp(12px, 2.5vw, 32px); padding: 32px; }
+  .phone-row img { height: min(88%, 620px); width: auto; border-radius: 28px; box-shadow: 0 30px 60px -20px rgba(0,0,0,.5); transition: transform .9s var(--ease); }
+  .phone-row img:nth-child(1), .phone-row img:nth-child(3) { height: min(76%, 540px); opacity: .9; }
+  .hero-media:hover .phone-row img:nth-child(1) { transform: translateX(-10px) rotate(-2deg); }
+  .hero-media:hover .phone-row img:nth-child(3) { transform: translateX(10px) rotate(2deg); }
   .video-wrap { padding-top: clamp(40px, 6vw, 80px); }
   .video-wrap video { width: 100%; border-radius: var(--radius-lg); background: var(--surface); display: block; }
   .widgets { padding-top: clamp(40px, 6vw, 80px); }
@@ -132,6 +139,7 @@ const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.
     .g-item.wide { grid-column: auto; }
     .hero-media { height: 340px; }
     .gallery.g-phones { grid-template-columns: repeat(2, 1fr); }
+    .phone-row img:nth-child(1), .phone-row img:nth-child(3) { display: none; }
     .gallery.g-squares { grid-template-columns: 1fr; }
   }
 </style>
