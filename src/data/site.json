@@ -130,5 +130,6 @@
       }
     ]
   },
-  "photo": ""
+  "photo": "/media/andrew-face.webp",
+  "heroPhoto": "/media/andrew-cutout.webp"
 }
