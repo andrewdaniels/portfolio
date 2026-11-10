@@ -2,22 +2,22 @@
 import Shell from '../layouts/Shell.astro';
 import Hero from './Hero.astro';
 import ProjectCard from './ProjectCard.astro';
-import FeedItem from './FeedItem.astro';
 import Footer from './Footer.astro';
 import Icon from './Icon.astro';
 import Mockup from './Mockup.astro';
 import site from '../data/site.json';
 import work from '../data/work.json';
 import testimonials from '../data/testimonials.json';
-import { getProjects, getFeed } from '../lib/content';
+import { getProjects } from '../lib/content';
 
 interface Props { openSheet?: 'about' | 'contact'; title?: string }
 const { openSheet, title } = Astro.props;
 const projects = await getProjects();
 const now = projects.filter((p) => p.data.status === 'now');
 const past = projects.filter((p) => p.data.status !== 'now');
-const selected = past.slice(0, 4);
-const feed = (await getFeed()).filter((f) => f.kind !== 'project').slice(0, 3);
+const moreIds = ['tribe-social', 'churchcalls-ai', 'coffeenotes'];
+const more = moreIds.map((id) => projects.find((p) => p.id === id)).filter(Boolean) as typeof projects;
+const selected = past.filter((p) => !moreIds.includes(p.id)).slice(0, 4);
 ---
 <Shell openSheet={openSheet} title={title}>
   <Hero />
@@ -106,13 +106,13 @@ const feed = (await getFeed()).filter((f) => f.kind !== 'project').slice(0, 3);
     </div>
   </section>
 
-  <!-- Feed preview -->
+  <!-- More projects -->
   <section class="section">
     <div class="section-head reveal">
-      <div><p class="eyebrow">05 · Feed</p><h2 class="h-lg">Recently shipped.</h2></div>
-      <a class="btn ghost" href="/feed">Open the feed <Icon name="arrow" size={16} /></a>
+      <div><p class="eyebrow">05 · More work</p><h2 class="h-lg">A few more I'm proud of.</h2></div>
+      <a class="btn ghost" href="/work">All projects <Icon name="arrow" size={16} /></a>
     </div>
-    <div class="feed-prev">{feed.map((f) => <FeedItem item={f} />)}</div>
+    <div class="more-grid">{more.map((p) => <ProjectCard project={p} />)}</div>
   </section>
 
   <Footer />
@@ -162,14 +162,14 @@ const feed = (await getFeed()).filter((f) => f.kind !== 'project').slice(0, 3);
   .t-ph { display: grid; place-items: center; background: var(--accent); color: #fff; font-weight: 700; }
   figcaption div { display: grid; line-height: 1.35; }
   figcaption span { font-size: 13px; }
-  .feed-prev { max-width: 720px; }
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
   @media (max-width: 960px) {
     .bg-grid { grid-template-columns: 1fr; }
     .stats { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 760px) {
-    .now-grid, .work-grid { grid-template-columns: 1fr; }
+    .now-grid, .work-grid, .more-grid { grid-template-columns: 1fr; }
     .section-head { flex-direction: column; align-items: start; }
   }
 </style>
