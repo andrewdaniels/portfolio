@@ -9,7 +9,7 @@ overview: "A YWAM base runs on spreadsheets, group chats, task boards and shared
 outcome: "In beta · waitlist open"
 cover: "/media/mockups/ywambase/dashboard.jpg"
 thumbs: ["/media/mockups/ywambase/school.jpg", "/media/mockups/ywambase/planning.jpg", "/media/mockups/ywambase/meals.jpg"]
-shots: ["/media/mockups/ywambase/school.jpg", "/media/mockups/ywambase/planning.jpg", "/media/mockups/ywambase/vehicles.jpg", "/media/mockups/ywambase/students.jpg", "/media/mockups/ywambase/budget.jpg", "/media/mockups/ywambase/invoices.jpg", "/media/mockups/ywambase/maintenance.jpg", "/media/mockups/ywambase/meals.jpg", "/media/mockups/ywambase/calendar.jpg", "/media/mockups/ywambase/chat.jpg", "/media/mockups/ywambase/hospitality.jpg", "/media/mockups/ywambase/feed.jpg", "/media/mockups/ywambase/mobile.jpg"]
+shots: ["/media/mockups/ywambase/school.jpg", "/media/mockups/ywambase/planning.jpg", "/media/mockups/ywambase/vehicles.jpg", "/media/mockups/ywambase/students.jpg", "/media/mockups/ywambase/budget.jpg", "/media/mockups/ywambase/invoices.jpg", "/media/mockups/ywambase/maintenance.jpg", "/media/mockups/ywambase/meals.jpg", "/media/mockups/ywambase/calendar.jpg", "/media/mockups/ywambase/chat.jpg", "/media/mockups/ywambase/hospitality.jpg", "/media/mockups/ywambase/mobile.jpg"]
 order: 3
 gallery: "mockups"
 featured: false
