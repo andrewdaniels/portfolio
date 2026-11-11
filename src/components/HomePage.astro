@@ -15,7 +15,7 @@ const { openSheet, title } = Astro.props;
 const projects = await getProjects();
 const now = projects.filter((p) => p.data.status === 'now');
 const past = projects.filter((p) => p.data.status !== 'now');
-const moreIds = ['tribe-social', 'churchcalls-ai', 'coffeenotes'];
+const moreIds = ['ywambase', 'churchcalls-ai', 'coffeenotes'];
 const more = moreIds.map((id) => projects.find((p) => p.id === id)).filter(Boolean) as typeof projects;
 const selected = past.filter((p) => !moreIds.includes(p.id)).slice(0, 4);
 ---
