@@ -31,7 +31,7 @@ const projects = defineCollection({
     tagline: z.string().default(''),
     link: z.string().default(''),
     mockup: z.enum(['iso', 'uncomn', 'knowhim']).default('iso'),
-    gallery: z.enum(['mixed', 'phones', 'squares']).default('mixed'),
+    gallery: z.enum(['mixed', 'phones', 'squares', 'mockups']).default('mixed'),
     widgets: z.array(z.string()).default([]),
     video: z.string().default(''),
     videoPoster: z.string().default(''),

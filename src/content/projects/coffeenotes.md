@@ -7,10 +7,10 @@ category: "Personal product · iOS"
 summary: "Coffee Notes is a brew journal for specialty-coffee people on iOS. You log each brew with its dose, water, ratio, grind and time, and rate it. The app shows how your brewing is trending and what your friends are brewing. Version 2 is a full redesign: an AI recap of your recent brews, deeper stats, better brewing tools and adding a coffee from a photo of the bag."
 overview: "A brew journal for dialing in coffee, and for seeing what your friends are brewing."
 outcome: "Live on iOS. Version 2 is being redesigned and rebuilt now."
-cover: "/media/coffeenotes/dashboard.webp"
-thumbs: ["/media/coffeenotes/stats.webp", "/media/coffeenotes/brew-ratio.webp"]
-shots: ["/media/coffeenotes/friends-feed.webp", "/media/coffeenotes/for-you.webp", "/media/coffeenotes/add-coffee.webp", "/media/coffeenotes/scan-bag.webp", "/media/coffeenotes/review-coffee.webp", "/media/coffeenotes/extraction.webp", "/media/coffeenotes/year-in-review.webp", "/media/coffeenotes/dashboard-light.webp"]
-gallery: "phones"
+cover: "/media/mockups/coffeenotes/dashboard.jpg"
+thumbs: ["/media/mockups/coffeenotes/stats.jpg", "/media/mockups/coffeenotes/brew-ratio.jpg"]
+shots: ["/media/mockups/coffeenotes/friends-feed.jpg", "/media/mockups/coffeenotes/for-you.jpg", "/media/mockups/coffeenotes/add-coffee.jpg", "/media/mockups/coffeenotes/scan-bag.jpg", "/media/mockups/coffeenotes/review-coffee.jpg", "/media/mockups/coffeenotes/extraction.jpg", "/media/mockups/coffeenotes/year-in-review.jpg", "/media/mockups/coffeenotes/dashboard-light.jpg"]
+gallery: "mockups"
 order: 8
 featured: false
 status: "past"

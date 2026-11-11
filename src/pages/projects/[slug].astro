@@ -119,6 +119,8 @@ const gallery = [...new Set([...(d.gallery === 'phones' ? [d.cover] : []), ...d.
   .g-phones .g-item { border-radius: 28px; background: #0d1013; }
   .g-phones .g-item img { aspect-ratio: 1080 / 2337; object-fit: cover; object-position: top; }
   .gallery.g-squares { grid-template-columns: repeat(2, 1fr); }
+  .g-mockups .g-item { background: #000; }
+  .g-mockups .g-item img { aspect-ratio: 4 / 3; }
   .g-squares .g-item img { object-fit: contain; background: var(--surface); }
   .body { display: grid; grid-template-columns: 220px 1fr; gap: 32px; padding-top: clamp(40px, 6vw, 80px); padding-bottom: 0; }
   .big { font-size: clamp(20px, 2vw, 28px); line-height: 1.45; letter-spacing: -.015em; max-width: 38ch; }

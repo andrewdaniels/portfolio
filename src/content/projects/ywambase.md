@@ -7,10 +7,11 @@ category: "Product design & build"
 summary: "Your whole base, in one place. A browser-based operating system for YWAM bases that connects schools, students, budgets, maintenance, vehicles, meals and plans."
 overview: "A YWAM base runs on spreadsheets, group chats, task boards and shared drives. Every school, kitchen and vehicle has its own system, and nobody sees the whole picture. YWAM Base pulls it into one app that works on computers, tablets and phones, in light and dark mode."
 outcome: "In beta · waitlist open"
-cover: "/media/ywambase/dashboard.webp"
-thumbs: ["/media/ywambase/school.webp", "/media/ywambase/planning.webp", "/media/ywambase/meals.webp"]
-shots: ["/media/ywambase/school.webp", "/media/ywambase/planning.webp", "/media/ywambase/vehicles.webp", "/media/ywambase/students.webp", "/media/ywambase/budget.webp", "/media/ywambase/invoices.webp", "/media/ywambase/maintenance.webp", "/media/ywambase/meals.webp", "/media/ywambase/calendar.webp", "/media/ywambase/chat.webp", "/media/ywambase/hospitality.webp", "/media/ywambase/feed.webp"]
+cover: "/media/mockups/ywambase/dashboard.jpg"
+thumbs: ["/media/mockups/ywambase/school.jpg", "/media/mockups/ywambase/planning.jpg", "/media/mockups/ywambase/meals.jpg"]
+shots: ["/media/mockups/ywambase/school.jpg", "/media/mockups/ywambase/planning.jpg", "/media/mockups/ywambase/vehicles.jpg", "/media/mockups/ywambase/students.jpg", "/media/mockups/ywambase/budget.jpg", "/media/mockups/ywambase/invoices.jpg", "/media/mockups/ywambase/maintenance.jpg", "/media/mockups/ywambase/meals.jpg", "/media/mockups/ywambase/calendar.jpg", "/media/mockups/ywambase/chat.jpg", "/media/mockups/ywambase/hospitality.jpg", "/media/mockups/ywambase/feed.jpg", "/media/mockups/ywambase/mobile.jpg"]
 order: 3
+gallery: "mockups"
 featured: false
 link: "https://ywambase.com"
 draft: false

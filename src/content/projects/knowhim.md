@@ -7,11 +7,11 @@ category: "Founder · Product Design & Flutter"
 summary: "KnowHim is a prayer and small-group app for growing in faith with others. It has short daily courses from Genesis to Revelation, prayer lists with reminders and answered-prayer tracking, prayer circles with shared weekly goals, church small groups, and a daily verse. KnowHim Pro adds iOS Home and Lock Screen widgets."
 overview: "Grow, pray and know Him. Together."
 outcome: "V2 is live on the App Store, rated 5.0."
-cover: "/media/knowhim-v2/home-v3.webp"
-thumbs: ["/media/knowhim-v2/groups-screen.webp", "/media/knowhim-v2/circle-week.webp", "/media/knowhim-v2/course.webp"]
-shots: ["/media/knowhim-v2/dv-devotional.webp", "/media/knowhim-v2/pr-list.webp", "/media/knowhim-v2/circle-chat.webp", "/media/knowhim-v2/share-verse.webp", "/media/knowhim-v2/start-course.webp", "/media/knowhim-v2/week-met.webp", "/media/knowhim-v2/pr-goal.webp", "/media/knowhim-v2/event-screen.webp", "/media/knowhim-v2/invite.webp", "/media/knowhim-v2/prayers.webp", "/media/knowhim-v2/prayer-history.webp", "/media/knowhim-v2/pr-create.webp"]
+cover: "/media/mockups/knowhim/home-v3.jpg"
+thumbs: ["/media/mockups/knowhim/groups-screen.jpg", "/media/mockups/knowhim/circle-week.jpg", "/media/mockups/knowhim/course.jpg"]
+shots: ["/media/mockups/knowhim/dv-devotional.jpg", "/media/mockups/knowhim/pr-list.jpg", "/media/mockups/knowhim/circle-chat.jpg", "/media/mockups/knowhim/share-verse.jpg", "/media/mockups/knowhim/start-course.jpg", "/media/mockups/knowhim/week-met.jpg", "/media/mockups/knowhim/pr-goal.jpg", "/media/mockups/knowhim/event-screen.jpg", "/media/mockups/knowhim/invite.jpg", "/media/mockups/knowhim/prayers.jpg", "/media/mockups/knowhim/prayer-history.jpg", "/media/mockups/knowhim/pr-create.jpg"]
 widgets: ["/media/knowhim-v2/widgets/wd-D-journey-friends.webp", "/media/knowhim-v2/widgets/wd-D-your-groups.webp", "/media/knowhim-v2/widgets/wd-D-month-ring.webp", "/media/knowhim-v2/widgets/wd-D-verse-small.webp", "/media/knowhim-v2/widgets/wd-D-circle-small.webp", "/media/knowhim-v2/widgets/wd-D-goal.webp"]
-gallery: "phones"
+gallery: "mockups"
 order: 1
 featured: true
 status: "now"
