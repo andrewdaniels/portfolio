@@ -1,7 +1,7 @@
 ---
 title: "YWAM Base"
 client: "YWAM Base"
-years: "2026"
+years: "Oct–Nov 2026"
 year: 2026
 category: "Product design & build"
 summary: "Your whole base, in one place. A browser-based operating system for YWAM bases that connects schools, students, budgets, maintenance, vehicles, meals and plans."
