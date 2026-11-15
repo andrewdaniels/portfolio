@@ -57,6 +57,11 @@ const shots = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     images: z.array(z.string()).default([]),
+    /** optional looping video shown above the images, with a still to show while it loads */
+    video: z.string().default(''),
+    videoPoster: z.string().default(''),
+    /** crop shape for the image grid, e.g. "4 / 3" for device mockups */
+    aspect: z.string().default('16 / 10'),
     project: z.string().default(''),
     draft: z.boolean().default(false),
   }),

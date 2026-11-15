@@ -7,9 +7,9 @@ category: "Personal product · iOS"
 summary: "Coffee Notes is a brew journal for iOS. It makes it easy to keep track of your brews, remember exactly how you made a coffee you loved, and share what you're brewing with friends."
 overview: "Remember how you brewed it. Share it with friends."
 outcome: "Live on the App Store. Version 2 is in the works."
-cover: "/media/mockups/coffeenotes/dashboard.jpg"
-thumbs: ["/media/mockups/coffeenotes/stats.jpg", "/media/mockups/coffeenotes/brew-ratio.jpg"]
-shots: ["/media/mockups/coffeenotes/friends-feed.jpg", "/media/mockups/coffeenotes/for-you.jpg", "/media/mockups/coffeenotes/add-coffee.jpg", "/media/mockups/coffeenotes/scan-bag.jpg", "/media/mockups/coffeenotes/review-coffee.jpg", "/media/mockups/coffeenotes/extraction.jpg", "/media/mockups/coffeenotes/year-in-review.jpg", "/media/mockups/coffeenotes/dashboard-light.jpg"]
+cover: "/media/coffeenotes-v2/brew-note-duo.jpg"
+thumbs: ["/media/coffeenotes-v2/brew-note-iphone.jpg", "/media/coffeenotes-v2/scan-bag.jpg", "/media/coffeenotes-v2/share-brew-duo.jpg"]
+shots: ["/media/coffeenotes-v2/brew-note-iphone.jpg", "/media/coffeenotes-v2/scan-bag.jpg", "/media/coffeenotes-v2/share-brew-duo.jpg", "/media/coffeenotes-v2/share-card-extraction.jpg", "/media/coffeenotes-v2/ai-analysis.jpg", "/media/coffeenotes-v2/paywall.jpg", "/media/coffeenotes-v2/equipment.jpg", "/media/coffeenotes-v2/onboarding-taste.jpg", "/media/coffeenotes-v2/profile-invite.jpg"]
 gallery: "mockups"
 order: 8
 featured: false

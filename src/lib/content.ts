@@ -26,6 +26,7 @@ export async function getFeed(): Promise<FeedEntry[]> {
     ...shots.map((s) => ({
       kind: 'shot' as const, id: s.id, title: s.data.title, text: (s.body || '').trim(), date: s.data.date,
       images: s.data.images, href: s.data.project ? `/projects/${s.data.project}` : undefined,
+      video: s.data.video, videoPoster: s.data.videoPoster, aspect: s.data.aspect,
     })),
     ...projects.map((p) => ({
       kind: 'project' as const, id: p.id, title: `${p.data.title}: ${p.data.overview || p.data.tagline}`,
