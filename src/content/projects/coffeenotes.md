@@ -14,7 +14,7 @@ gallery: "mockups"
 order: 8
 featured: false
 status: "past"
-link: ""
+link: "https://optimalcoffee.app"
 draft: false
 tagline: "Remember how you brewed it. Share it with friends."
 ---
