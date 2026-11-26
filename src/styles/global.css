@@ -377,7 +377,7 @@ textarea.input { height: 120px; padding: 12px 14px; resize: vertical; }
 .footer-alt { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
 .footer-email { color: rgba(244, 244, 242, .7); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
 .footer-email:hover { color: #f4f4f2; }
-.footer-cal { min-height: 560px; border-radius: calc(var(--radius-inset) - 8px); overflow: auto; background: rgba(244, 244, 242, .04); box-shadow: inset 0 0 0 1px rgba(244, 244, 242, .08); display: grid; }
+.footer-cal { min-height: 560px; overflow: auto; display: grid; }
 .footer-cal-fallback { place-self: center; display: inline-flex; align-items: center; gap: 8px; color: #f4f4f2; }
 @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; } .footer-cal { min-height: 640px; } }
 .footer .row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
