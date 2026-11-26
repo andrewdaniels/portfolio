@@ -15,7 +15,9 @@
   --font-display: 'Satoshi', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
-  --accent: #d45509;
+  /* neutral accent: ink on light, near-white on dark (no orange) */
+  --accent: #101416;
+  --on-accent: #ffffff;
   --accent-soft: color-mix(in oklab, var(--accent) 14%, transparent);
   --radius-shell: 24px;
   /* anything inset 8px from the container edge nests concentrically */
@@ -49,7 +51,8 @@ html[data-theme='light'] {
 
 html[data-theme='dark'] {
   color-scheme: dark;
-  --accent: #f26a1b;
+  --accent: #f4f4f2;
+  --on-accent: #101416;
   --page: #262f35;
   --on-page: #f4f4f2;
   --on-page-soft: rgba(244, 244, 242, .55);
@@ -84,7 +87,7 @@ img { height: auto; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
-::selection { background: var(--accent); color: #fff; }
+::selection { background: var(--accent); color: var(--on-accent); }
 
 /* ------------------------------------------------------------- shell */
 .shell {
@@ -258,7 +261,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing:
 .btn:hover .icon { transform: translate(2px, -2px); }
 .btn.ghost { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
 .btn.ghost:hover { background: var(--surface); }
-.btn.accent { background: var(--accent); color: #fff; }
+.btn.accent { background: var(--accent); color: var(--on-accent); }
 .btn.sm { height: 36px; padding: 0 14px; font-size: 14px; }
 .link-arrow {
   display: inline-flex; align-items: center; gap: 6px;
