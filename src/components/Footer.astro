@@ -1,18 +1,75 @@
 ---
 import site from '../data/site.json';
 import Icon from './Icon.astro';
+const calLink = 'andrew-daniels-design/30min';
 ---
 <footer class="footer">
-  <p class="eyebrow" style="color:rgba(244,244,242,.5)">Contact</p>
-  <h2 class="display h-xl">Anything in mind? Let's talk.</h2>
-  <div class="row">
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" data-open="contact">Start a conversation <Icon name="arrow" size={16} /></button>
-      <a class="btn ghost" href={`mailto:${site.email}`}>{site.email}</a>
+  <div class="footer-grid">
+    <div class="footer-intro">
+      <p class="eyebrow" style="color:rgba(244,244,242,.5)">Contact</p>
+      <h2 class="display h-xl">Anything in mind? Let's talk.</h2>
+      <p class="footer-lede">Grab 30 minutes on my calendar. No prep needed, just bring what you're working on.</p>
+      <div class="footer-alt">
+        <button class="btn ghost" data-open="contact">Send a message instead</button>
+        <a class="footer-email" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <div class="socials">
+        {site.socials.map((s) => <a href={s.url} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.icon} size={18} /></a>)}
+      </div>
     </div>
-    <div class="socials">
-      {site.socials.map((s) => <a href={s.url} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.icon} size={18} /></a>)}
+    <div class="footer-cal" id="my-cal-inline-30min" data-cal-link={calLink}>
+      <a class="footer-cal-fallback" href={`https://cal.com/${calLink}`} target="_blank" rel="noopener">
+        Book a 30 min call <Icon name="arrow" size={16} />
+      </a>
     </div>
   </div>
   <div class="row"><small>© {new Date().getFullYear()} {site.name} · {site.location}</small><small>Working remote since {site.remoteSince}</small></div>
 </footer>
+
+<script>
+  // Cal.com inline embed, loaded only when the footer gets close to the viewport.
+  const el = document.getElementById('my-cal-inline-30min');
+  if (el) {
+    const load = () => {
+      const w = window as any;
+      (function (C: any, A: string, L: string) {
+        const p = function (a: any, ar: any) { a.q.push(ar); };
+        const d = C.document;
+        C.Cal = C.Cal || function () {
+          const cal = C.Cal; const ar = arguments;
+          if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; }
+          if (ar[0] === L) {
+            const api: any = function () { p(api, arguments); };
+            const namespace = ar[1]; api.q = api.q || [];
+            if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); }
+            else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(w, 'https://app.cal.com/embed/embed.js', 'init');
+      const Cal = w.Cal;
+      Cal('init', '30min', { origin: 'https://app.cal.com' });
+      Cal.config = Cal.config || {};
+      Cal.config.forwardQueryParams = true;
+      el.innerHTML = '';
+      Cal.ns['30min']('inline', {
+        elementOrSelector: '#my-cal-inline-30min',
+        config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'dark' },
+        calLink: el.dataset.calLink,
+      });
+      Cal.ns['30min']('ui', {
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+        theme: 'dark',
+        cssVarsPerTheme: { dark: { 'cal-brand': '#f4f4f2' }, light: { 'cal-brand': '#101416' } },
+      });
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { io.disconnect(); load(); }
+      }, { rootMargin: '600px 0px' });
+      io.observe(el);
+    } else load();
+  }
+</script>
